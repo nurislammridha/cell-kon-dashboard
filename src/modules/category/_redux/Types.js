@@ -1,0 +1,2 @@
+export const IS_CREATE_CATEGORY = "IS_CREATE_CATEGORY";
+export const CATEGORY_LIST = "CATEGORY_LIST";

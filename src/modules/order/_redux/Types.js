@@ -1,0 +1,4 @@
+export const ORDER_LIST = "ORDER_LIST";
+export const IS_ORDER_LIST = "IS_ORDER_LIST";
+export const AFTER_UPDATE_STATUS = "AFTER_UPDATE_STATUS";
+export const IS_UPDATING = "IS_UPDATING";
