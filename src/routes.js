@@ -11,6 +11,8 @@ import ProductListContainer from "./modules/product/views/ProductListContainer";
 import UserListContainer from "./modules/user/views/UserListContainer";
 import BrandList from "./modules/brand/components/BrandList";
 import CreateBrandContainer from "./modules/brand/views/CreateBrandContainer";
+import UnitList from "./modules/unit/components/UnitList";
+import CreateUnitContainer from "./modules/unit/views/CreateUnitContainer";
 
 const Dashboard = React.lazy(() => import("./views/dashboard/Dashboard"));
 
@@ -22,6 +24,12 @@ const routes = [
     path: "/brand-add",
     name: "Create Brand",
     component: CreateBrandContainer,
+  },
+  { path: "/unit", name: "Unit", component: UnitList },
+  {
+    path: "/unit-add",
+    name: "Create Unit",
+    component: CreateUnitContainer,
   },
   { path: "/category", name: "Category", component: CategoryList },
   {
