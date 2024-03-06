@@ -26,6 +26,18 @@ const _nav = [
   },
   {
     _tag: "CSidebarNavItem",
+    name: "Size",
+    to: "/size",
+    icon: <CIcon name="cil-speedometer" customClasses="c-sidebar-nav-icon" />,
+  },
+  {
+    _tag: "CSidebarNavItem",
+    name: "Color",
+    to: "/color",
+    icon: <CIcon name="cil-speedometer" customClasses="c-sidebar-nav-icon" />,
+  },
+  {
+    _tag: "CSidebarNavItem",
     name: "Category",
     to: "/category",
     icon: <CIcon name="cil-speedometer" customClasses="c-sidebar-nav-icon" />,

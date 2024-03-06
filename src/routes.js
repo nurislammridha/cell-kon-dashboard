@@ -13,24 +13,45 @@ import BrandList from "./modules/brand/components/BrandList";
 import CreateBrandContainer from "./modules/brand/views/CreateBrandContainer";
 import UnitList from "./modules/unit/components/UnitList";
 import CreateUnitContainer from "./modules/unit/views/CreateUnitContainer";
+import SizeList from "./modules/size/components/SizeList";
+import CreateSizeContainer from "./modules/size/views/CreateSizeContainer";
+import ColorList from "./modules/color/components/ColorList";
+import CreateColorContainer from "./modules/color/views/CreateColorContainer";
 
 const Dashboard = React.lazy(() => import("./views/dashboard/Dashboard"));
 
 const routes = [
   { path: "/", exact: true, name: "Home" },
   { path: "/dashboard", name: "Dashboard", component: Dashboard },
+  //brnad
   { path: "/brand", name: "Brand", component: BrandList },
   {
     path: "/brand-add",
     name: "Create Brand",
     component: CreateBrandContainer,
   },
+  //unit
   { path: "/unit", name: "Unit", component: UnitList },
   {
     path: "/unit-add",
     name: "Create Unit",
     component: CreateUnitContainer,
   },
+  //size
+  { path: "/size", name: "Size", component: SizeList },
+  {
+    path: "/size-add",
+    name: "Create Size",
+    component: CreateSizeContainer,
+  },
+  //color
+  { path: "/color", name: "Color", component: ColorList },
+  {
+    path: "/color-add",
+    name: "Create Color",
+    component: CreateColorContainer,
+  },
+  //category
   { path: "/category", name: "Category", component: CategoryList },
   {
     path: "/category-add",
