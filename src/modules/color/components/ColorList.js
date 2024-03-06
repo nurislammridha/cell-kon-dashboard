@@ -57,6 +57,7 @@ const ColorList = () => {
               <tr>
                 <th>SL</th>
                 <th>Color Name</th>
+                <th>Color Code</th>
                 <th>Status</th>
                 <th>Action</th>
               </tr>
@@ -66,6 +67,7 @@ const ColorList = () => {
                 <tr>
                   <td>{index + 1}</td>
                   <td>{item.colorName}</td>
+                  <td>{item.colorHexCode}</td>
                   <td>{item.isActive ? "Active" : "Inactive"}</td>
                   <td>
                     <a

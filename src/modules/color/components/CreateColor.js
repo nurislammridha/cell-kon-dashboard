@@ -33,7 +33,7 @@ const CreateColor = () => {
               onChange={(e) => setColorName(e.target.value)}
             />
           </div>
-          <div>
+          <div className="mt-3">
             <h6 className="mb-3">Color Hexa Code</h6>
             <input
               className="form-control"
