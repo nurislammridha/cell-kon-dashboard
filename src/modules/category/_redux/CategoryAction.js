@@ -18,7 +18,7 @@ export const SubmitCategory = (category) => (dispatch) => {
         if (res.data.status) {
           showToast("success", res.data.message);
           dispatch({ type: Types.IS_CREATE_CATEGORY, payload: false });
-          dispatch({ type: Types.AFTER_CATEGORY, payload: true });
+          dispatch({ type: Types.AFTER_CREATED, payload: true });
         } else {
           showToast("error", res.data.message);
           dispatch({ type: Types.IS_CREATE_CATEGORY, payload: false });

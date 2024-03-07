@@ -5,7 +5,7 @@ const initialState = {
     sellerName: "",
     sellerAddress: "",
     shopName: "",
-    deliveryPeriod: "",
+    deliveryPeriod: 0,
     sellerRatings: "",
     shopLogoUrl: "https://picsum.photos/200/300",
     sellerPhone: "",

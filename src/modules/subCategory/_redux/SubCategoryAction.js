@@ -10,7 +10,7 @@ export const SubmitSubCategory = (subCategory, category, categoryId) => (dispatc
     showToast("error", "You Should Select Category Name");
     return 0;
   }
-  const url = `${process.env.REACT_APP_API_URL}category`;
+  const url = `${process.env.REACT_APP_API_URL}sub-category`;
   dispatch({ type: Types.IS_CREATE_SUBCATEGORY, payload: true });
   const postData = {
     categoryName: category,

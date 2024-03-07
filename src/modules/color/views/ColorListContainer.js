@@ -1,10 +1,10 @@
 import React from "react";
-import CreateColor from "../components/CreateColor";
+import ColorList from "../components/ColorList";
 
 const ColorListContainer = () => {
   return (
     <>
-      <CreateColor />
+      <ColorList />
     </>
   );
 };

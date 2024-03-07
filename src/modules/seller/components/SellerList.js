@@ -59,10 +59,11 @@ const SellerList = () => {
                 <th>Name</th>
                 <th>Address</th>
                 <th>Shop</th>
-                <th>Delivery Period</th>
+                <th>Period</th>
                 <th>Ratings</th>
                 <th>Phone</th>
                 <th>Email</th>
+                <th>Status</th>
               </tr>
             </thead>
             <tbody>

@@ -1,10 +1,10 @@
 import React from "react";
-import CreateSeller from "../components/CreateSeller";
+import SellerList from "../components/SellerList";
 
 const SellerListContainer = () => {
   return (
     <>
-      <CreateSeller />
+      <SellerList />
     </>
   );
 };

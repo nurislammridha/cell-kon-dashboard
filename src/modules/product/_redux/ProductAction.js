@@ -3,70 +3,79 @@ import Axios from "axios";
 import { showToast } from "src/utils/ToastHelper";
 //test//est//
 
-export const GetProductInput = (name, value, e) => (dispatch) => {
+export const GetProductInput = (name, value) => (dispatch) => {
   const formData = {
     name: name,
     value: value,
   };
   dispatch({ type: Types.GET_PRODUCT_INPUT, payload: formData });
 
-  if (name === "productImage") {
-    let reader = new FileReader();
-    const file = e.target.files[0];
-    reader.onloadend = () => {
-      formData.name = "imagePreviewUrl";
-      formData.value = reader.result;
-      dispatch({ type: Types.GET_PRODUCT_INPUT, payload: formData });
-    };
-    reader.readAsDataURL(file);
-  }
 };
 export const SubmitProduct = (data) => (dispatch) => {
-  if (data.productName.length === 0) {
+  const { productName, rp, mrp, regularDiscount, campaignDiscount, unitName,
+    unitId, colorName, colorId, sizeName, sizeId, categoryName, categoryId,
+    subcategoryName, subCategoryId, brandName, brandId,
+    sellerName, availableQuantity,
+    shortDescriptions,
+    longDescriptions,
+    productImgUrl,
+    productIconUrl,
+  } = data
+  if (productName.length === 0) {
     showToast("error", "Product name shouldn't be empty");
     return 0;
-  } else if (data.productNameBn.length === 0) {
-    showToast("error", "Product name bangla shouldn't be empty");
+  } else if (rp > 0) {
+    showToast("error", "Rp should be greater than zero");
     return 0;
-  } else if (data.categoryName.length === 0) {
-    showToast("error", "Please Select a category");
+  } else if (mrp > 0) {
+    showToast("error", "Mrp should be greater than zero");
     return 0;
-  } else if (data.productMRP.length === 0) {
-    showToast("error", "Product MRP shouldn't be empty");
+  } else if (regularDiscount > 0) {
+    showToast("error", "Regular discount should be greater than zero");
     return 0;
-  } else if (data.productMRPBn.length === 0) {
-    showToast("error", "Product MRP bangla shouldn't be empty");
+  } else if (campaignDiscount > 0) {
+    showToast("error", "Campaign should be greater than zero");
     return 0;
-  } else if (data.discountPrice.length === 0) {
-    showToast("error", "Discount price shouldn't be empty");
+  } else if (unitName.length === 0) {
+    showToast("error", "You should select unit name");
     return 0;
-  } else if (data.discountPriceBn.length === 0) {
-    showToast("error", "Discount price bangla shouldn't be empty");
+  } else if (colorName.length === 0) {
+    showToast("error", "You should select a color");
     return 0;
-  } else if (data.productCode.length === 0) {
-    showToast("error", "Product code shouldn't be empty");
+  } else if (sizeName.length === 0) {
+    showToast("error", "You should select a color");
     return 0;
-  } else if (data.productImage.length === 0) {
-    showToast("error", "Please select a product image");
+  } else if (categoryName.length === 0) {
+    showToast("error", "select a category");
+    return 0;
+  } else if (subcategoryName.length === 0) {
+    showToast("error", "select a subcategory category");
+    return 0;
+  } else if (brandName.length === 0) {
+    showToast("error", "Select a brand");
+    return 0;
+  } else if (sellerName.length === 0) {
+    showToast("error", "Select a seller");
+    return 0;
+  } else if (shortDescriptions.length === 0) {
+    showToast("error", "Short description should n't be empty");
+    return 0;
+  } else if (longDescriptions.length === 0) {
+    showToast("error", "Long description should n't be empty");
+    return 0;
+  } else if (shortDescriptions.length === 0) {
+    showToast("error", "short description should n't be empty");
+    return 0;
+  } else if (productImgUrl.length === 0) {
+    showToast("error", "product Img url should n't be empty");
+    return 0;
+  } else if (productIconUrl.length === 0) {
+    showToast("error", "Product Icon url should n't be empty");
     return 0;
   }
   const url = `${process.env.REACT_APP_API_URL}product`;
   dispatch({ type: Types.IS_CREATE_PRODUCT, payload: true });
   const formData = new FormData();
-  formData.append("product_name", data.productName);
-  formData.append("product_name_bn", data.productNameBn);
-  formData.append("category_id", data.categoryId);
-  formData.append("category_name", data.categoryName);
-  formData.append("category_name_bn", data.categoryNameBn);
-  formData.append("product_mrp", data.productMRP);
-  formData.append("product_mrp_bn", data.productMRPBn);
-  formData.append("is_discount", true);
-  formData.append("discount_price", data.discountPrice);
-  formData.append("discount_price_bn", data.discountPriceBn);
-  formData.append("is_active", true);
-  formData.append("priority", data.priority);
-  formData.append("product_image", data.productImage);
-  formData.append("product_code", data.productCode);
 
   try {
     Axios.post(url, formData)

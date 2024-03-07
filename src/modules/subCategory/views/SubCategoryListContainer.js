@@ -1,10 +1,10 @@
 import React from "react";
-import CreateSubCategory from "../components/CreateSubCategory";
+import SubCategoryList from "../components/SubCategoryList";
 
 const SubCategoryListContainer = () => {
   return (
     <>
-      <CreateSubCategory />
+      <SubCategoryList />
     </>
   );
 };

@@ -1,10 +1,10 @@
 import React from "react";
-import CreateCategory from "../components/CreateCategory";
+import CategoryList from "../components/CategoryList";
 
 const CategoryListContainer = () => {
   return (
     <>
-      <CreateCategory />
+      <CategoryList />
     </>
   );
 };

@@ -49,10 +49,10 @@ const CreateSeller = () => {
             />
           </div>
           <div className="mt-3">
-            <h6 className="mb-3">Delivery Period</h6>
+            <h6 className="mb-3">Delivery Period (DAYS)</h6>
             <input
               className="form-control"
-              value={sellerInput.shopName + " Days"}
+              value={sellerInput.deliveryPeriod}
               type="number"
               placeholder="enter delivery periods in days"
               onChange={(e) => handleChange("deliveryPeriod", e.target.value)}
@@ -72,10 +72,10 @@ const CreateSeller = () => {
             <h6 className="mb-3">Seller Email</h6>
             <input
               className="form-control"
-              value={sellerInput.sellerPhone}
+              value={sellerInput.sellerEmail}
               type="text"
-              placeholder="01XXXXXXXXX"
-              onChange={(e) => handleChange("sellerPhone", e.target.value)}
+              placeholder="example@gmail.com"
+              onChange={(e) => handleChange("sellerEmail", e.target.value)}
             />
           </div>
 

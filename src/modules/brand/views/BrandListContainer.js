@@ -1,10 +1,10 @@
 import React from "react";
-import CreateBrand from "../components/CreateBrand";
+import BrandList from "../components/BrandList";
 
 const BrandListContainer = () => {
   return (
     <>
-      <CreateBrand />
+      <BrandList />
     </>
   );
 };

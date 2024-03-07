@@ -1,10 +1,10 @@
 import React from "react";
-import CreateUnit from "../components/CreateUnit";
+import UnitList from "../components/UnitList";
 
 const UnitListContainer = () => {
   return (
     <>
-      <CreateUnit />
+      <UnitList />
     </>
   );
 };
