@@ -2,55 +2,55 @@ import * as Types from "./Types";
 import Axios from "axios";
 import { showToast } from "src/utils/ToastHelper";
 //test//est//
-export const SubmitCategory = (category) => (dispatch) => {
-  if (category.length === 0) {
-    showToast("error", "Category shouldn't be empty");
+export const SubmitBrand = (brand) => (dispatch) => {
+  if (brand.length === 0) {
+    showToast("error", "Brand shouldn't be empty");
     return 0;
   }
-  const url = `${process.env.REACT_APP_API_URL}category`;
-  dispatch({ type: Types.IS_CREATE_CATEGORY, payload: true });
+  const url = `${process.env.REACT_APP_API_URL}brand`;
+  dispatch({ type: Types.IS_CREATE_BRAND, payload: true });
   const postData = {
-    categoryName: category
+    brandName: brand
   };
   try {
     Axios.post(url, postData)
       .then((res) => {
         if (res.data.status) {
           showToast("success", res.data.message);
-          dispatch({ type: Types.IS_CREATE_CATEGORY, payload: false });
-          dispatch({ type: Types.AFTER_CATEGORY, payload: true });
+          dispatch({ type: Types.IS_CREATE_BRAND, payload: false });
+          dispatch({ type: Types.AFTER_CREATED, payload: true });
         } else {
           showToast("error", res.data.message);
-          dispatch({ type: Types.IS_CREATE_CATEGORY, payload: false });
+          dispatch({ type: Types.IS_CREATE_BRAND, payload: false });
         }
       })
       .catch((err) => {
-        dispatch({ type: Types.IS_CREATE_CATEGORY, payload: false });
+        dispatch({ type: Types.IS_CREATE_BRAND, payload: false });
         const message = JSON.parse(err.request.response).message;
         showToast("error", message);
       });
   } catch (error) {
-    dispatch({ type: Types.IS_CREATE_CATEGORY, payload: false });
+    dispatch({ type: Types.IS_CREATE_BRAND, payload: false });
     showToast("error", "Something went wrong");
   }
 };
 export const AfterCreatedFalse = () => (dispatch) => {
   dispatch({ type: Types.AFTER_CREATED, payload: false })
 }
-export const GetCategoryList = () => (dispatch) => {
-  const url = `${process.env.REACT_APP_API_URL}category`;
+export const GetBrandList = () => (dispatch) => {
+  const url = `${process.env.REACT_APP_API_URL}brand`;
   try {
     Axios.get(url).then((res) => {
       if (res.data.status) {
-        dispatch({ type: Types.CATEGORY_LIST, payload: res.data.result });
+        dispatch({ type: Types.BRAND_LIST, payload: res.data.result });
       }
     });
   } catch (error) {
     showToast("error", "Something went wrong");
   }
 };
-export const CategoryDelete = (id) => (dispatch) => {
-  const url = `${process.env.REACT_APP_API_URL}category/${id}`;
+export const BrandDelete = (id) => (dispatch) => {
+  const url = `${process.env.REACT_APP_API_URL}brand/${id}`;
   try {
     Axios.delete(url).then((res) => {
       if (res.data.status) {

@@ -1,28 +1,28 @@
 import * as Types from "./Types";
 
 const initialState = {
-  isCategory: false,
+  isBrand: false,
   afterCreated: false,
   afterDeleted: false,
-  categoryList: null,
+  brandList: null,
 };
-const CategoryReducer = (state = initialState, action) => {
+const BrandReducer = (state = initialState, action) => {
   const newState = { ...state };
   switch (action.type) {
-    case Types.IS_CREATE_CATEGORY:
+    case Types.IS_CREATE_BRAND:
       return {
         ...state,
-        isCategory: action.payload,
+        isBrand: action.payload,
       };
     case Types.AFTER_CREATED:
       return {
         ...state,
         afterCreated: action.payload,
       };
-    case Types.CATEGORY_LIST:
+    case Types.BRAND_LIST:
       return {
         ...state,
-        categoryList: action.payload,
+        brandList: action.payload,
       };
     case Types.AFTER_DELETED:
       return {
@@ -34,4 +34,4 @@ const CategoryReducer = (state = initialState, action) => {
   }
   return newState;
 };
-export default CategoryReducer;
+export default BrandReducer;

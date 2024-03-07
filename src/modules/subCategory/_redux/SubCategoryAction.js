@@ -2,55 +2,60 @@ import * as Types from "./Types";
 import Axios from "axios";
 import { showToast } from "src/utils/ToastHelper";
 //test//est//
-export const SubmitCategory = (category) => (dispatch) => {
-  if (category.length === 0) {
-    showToast("error", "Category shouldn't be empty");
+export const SubmitSubCategory = (subCategory, category, categoryId) => (dispatch) => {
+  if (subCategory.length === 0) {
+    showToast("error", "Sub category name shouldn't be empty");
+    return 0;
+  } else if (category.length === 0) {
+    showToast("error", "You Should Select Category Name");
     return 0;
   }
   const url = `${process.env.REACT_APP_API_URL}category`;
-  dispatch({ type: Types.IS_CREATE_CATEGORY, payload: true });
+  dispatch({ type: Types.IS_CREATE_SUBCATEGORY, payload: true });
   const postData = {
-    categoryName: category
+    categoryName: category,
+    categoryId: categoryId,
+    subCategoryName: subCategory,
   };
   try {
     Axios.post(url, postData)
       .then((res) => {
         if (res.data.status) {
           showToast("success", res.data.message);
-          dispatch({ type: Types.IS_CREATE_CATEGORY, payload: false });
-          dispatch({ type: Types.AFTER_CATEGORY, payload: true });
+          dispatch({ type: Types.IS_CREATE_SUBCATEGORY, payload: false });
+          dispatch({ type: Types.AFTER_CREATED, payload: true });
         } else {
           showToast("error", res.data.message);
-          dispatch({ type: Types.IS_CREATE_CATEGORY, payload: false });
+          dispatch({ type: Types.IS_CREATE_SUBCATEGORY, payload: false });
         }
       })
       .catch((err) => {
-        dispatch({ type: Types.IS_CREATE_CATEGORY, payload: false });
+        dispatch({ type: Types.IS_CREATE_SUBCATEGORY, payload: false });
         const message = JSON.parse(err.request.response).message;
         showToast("error", message);
       });
   } catch (error) {
-    dispatch({ type: Types.IS_CREATE_CATEGORY, payload: false });
+    dispatch({ type: Types.IS_CREATE_SUBCATEGORY, payload: false });
     showToast("error", "Something went wrong");
   }
 };
 export const AfterCreatedFalse = () => (dispatch) => {
   dispatch({ type: Types.AFTER_CREATED, payload: false })
 }
-export const GetCategoryList = () => (dispatch) => {
-  const url = `${process.env.REACT_APP_API_URL}category`;
+export const GetSubCategoryList = () => (dispatch) => {
+  const url = `${process.env.REACT_APP_API_URL}sub-category`;
   try {
     Axios.get(url).then((res) => {
       if (res.data.status) {
-        dispatch({ type: Types.CATEGORY_LIST, payload: res.data.result });
+        dispatch({ type: Types.SUBCATEGORY_LIST, payload: res.data.result });
       }
     });
   } catch (error) {
     showToast("error", "Something went wrong");
   }
 };
-export const CategoryDelete = (id) => (dispatch) => {
-  const url = `${process.env.REACT_APP_API_URL}category/${id}`;
+export const SubCategoryDelete = (id) => (dispatch) => {
+  const url = `${process.env.REACT_APP_API_URL}sub-category/${id}`;
   try {
     Axios.delete(url).then((res) => {
       if (res.data.status) {

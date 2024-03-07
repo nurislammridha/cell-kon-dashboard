@@ -212,7 +212,8 @@ export const getCategoryOption = (data) => {
     data.forEach((item) => {
       const obj = {
         label: item.categoryName,
-        value: item._id
+        value: item._id,
+        categoryNameBn: item.categoryNameBn,
       };
       arr.push(obj);
     });

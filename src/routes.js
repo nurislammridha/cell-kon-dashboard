@@ -1,5 +1,4 @@
 import React from "react";
-import CategoryList from "./modules/category/components/CategoryList";
 import CreateCategoryContainer from "./modules/category/views/CreateCategoryContainer";
 import OrderAcceptContainer from "./modules/order/views/OrderAcceptContainer";
 import OrderDeliveredContainer from "./modules/order/views/OrderDeliveredContainer";
@@ -9,14 +8,19 @@ import CreateProductContainer from "./modules/product/views/CreateProductContain
 import EditProductContainer from "./modules/product/views/EditProductContainer";
 import ProductListContainer from "./modules/product/views/ProductListContainer";
 import UserListContainer from "./modules/user/views/UserListContainer";
-import BrandList from "./modules/brand/components/BrandList";
 import CreateBrandContainer from "./modules/brand/views/CreateBrandContainer";
-import UnitList from "./modules/unit/components/UnitList";
 import CreateUnitContainer from "./modules/unit/views/CreateUnitContainer";
-import SizeList from "./modules/size/components/SizeList";
 import CreateSizeContainer from "./modules/size/views/CreateSizeContainer";
-import ColorList from "./modules/color/components/ColorList";
 import CreateColorContainer from "./modules/color/views/CreateColorContainer";
+import CreateSubCategoryContainer from "./modules/subCategory/views/CreateSubCategoryContainer";
+import CreateSellerContainer from "./modules/seller/views/CreateSellerContainer";
+import SellerListContainer from "./modules/seller/views/SellerListContainer";
+import SubCategoryListContainer from "./modules/subCategory/views/SubCategoryListContainer";
+import CategoryListContainer from "./modules/category/views/CategoryListContainer";
+import ColorListContainer from "./modules/color/views/ColorListContainer";
+import SizeListContainer from "./modules/size/views/SizeListContainer";
+import UnitListContainer from "./modules/unit/views/UnitListContainer";
+import BrandListContainer from "./modules/brand/views/BrandListContainer";
 
 const Dashboard = React.lazy(() => import("./views/dashboard/Dashboard"));
 
@@ -24,40 +28,55 @@ const routes = [
   { path: "/", exact: true, name: "Home" },
   { path: "/dashboard", name: "Dashboard", component: Dashboard },
   //brnad
-  { path: "/brand", name: "Brand", component: BrandList },
+  { path: "/brand", name: "Brand", component: BrandListContainer },
   {
     path: "/brand-add",
     name: "Create Brand",
     component: CreateBrandContainer,
   },
   //unit
-  { path: "/unit", name: "Unit", component: UnitList },
+  { path: "/unit", name: "Unit", component: UnitListContainer },
   {
     path: "/unit-add",
     name: "Create Unit",
     component: CreateUnitContainer,
   },
   //size
-  { path: "/size", name: "Size", component: SizeList },
+  { path: "/size", name: "Size", component: SizeListContainer },
   {
     path: "/size-add",
     name: "Create Size",
     component: CreateSizeContainer,
   },
   //color
-  { path: "/color", name: "Color", component: ColorList },
+  { path: "/color", name: "Color", component: ColorListContainer },
   {
     path: "/color-add",
     name: "Create Color",
     component: CreateColorContainer,
   },
   //category
-  { path: "/category", name: "Category", component: CategoryList },
+  { path: "/category", name: "Category", component: CategoryListContainer },
   {
     path: "/category-add",
     name: "Create Category",
     component: CreateCategoryContainer,
   },
+  //sub category
+  { path: "/sub-category", name: "Sub Category", component: SubCategoryListContainer },
+  {
+    path: "/sub-category-add",
+    name: "Create Sub Category",
+    component: CreateSubCategoryContainer,
+  },
+  //seller
+  { path: "/seller", name: "Seller", component: SellerListContainer },
+  {
+    path: "/seller-add",
+    name: "Create Seller",
+    component: CreateSellerContainer,
+  },
+  //products
   {
     path: "/product",
     name: "Product List",

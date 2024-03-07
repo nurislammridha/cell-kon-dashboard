@@ -36,12 +36,24 @@ const _nav = [
     to: "/color",
     icon: <CIcon name="cil-speedometer" customClasses="c-sidebar-nav-icon" />,
   },
-  // {
-  //   _tag: "CSidebarNavItem",
-  //   name: "Category",
-  //   to: "/category",
-  //   icon: <CIcon name="cil-speedometer" customClasses="c-sidebar-nav-icon" />,
-  // },
+  {
+    _tag: "CSidebarNavItem",
+    name: "Category",
+    to: "/category",
+    icon: <CIcon name="cil-speedometer" customClasses="c-sidebar-nav-icon" />,
+  },
+  {
+    _tag: "CSidebarNavItem",
+    name: "Sub Category",
+    to: "/sub-category",
+    icon: <CIcon name="cil-speedometer" customClasses="c-sidebar-nav-icon" />,
+  },
+  {
+    _tag: "CSidebarNavItem",
+    name: "Seller",
+    to: "/seller",
+    icon: <CIcon name="cil-speedometer" customClasses="c-sidebar-nav-icon" />,
+  },
   // {
   //   _tag: "CSidebarNavItem",
   //   name: "Propduct",

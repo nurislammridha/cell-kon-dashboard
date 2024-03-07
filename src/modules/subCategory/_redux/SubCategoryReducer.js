@@ -1,28 +1,28 @@
 import * as Types from "./Types";
 
 const initialState = {
-  isCategory: false,
+  isSubCategory: false,
   afterCreated: false,
   afterDeleted: false,
-  categoryList: null,
+  subCategoryList: null,
 };
-const CategoryReducer = (state = initialState, action) => {
+const SubCategoryReducer = (state = initialState, action) => {
   const newState = { ...state };
   switch (action.type) {
-    case Types.IS_CREATE_CATEGORY:
+    case Types.IS_CREATE_SUBCATEGORY:
       return {
         ...state,
-        isCategory: action.payload,
+        isSubCategory: action.payload,
       };
     case Types.AFTER_CREATED:
       return {
         ...state,
         afterCreated: action.payload,
       };
-    case Types.CATEGORY_LIST:
+    case Types.SUBCATEGORY_LIST:
       return {
         ...state,
-        categoryList: action.payload,
+        subCategoryList: action.payload,
       };
     case Types.AFTER_DELETED:
       return {
@@ -34,4 +34,4 @@ const CategoryReducer = (state = initialState, action) => {
   }
   return newState;
 };
-export default CategoryReducer;
+export default SubCategoryReducer;

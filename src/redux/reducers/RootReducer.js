@@ -5,7 +5,9 @@ import CategoryReducer from "src/modules/category/_redux/CategoryReducer";
 import ColorReducer from "src/modules/color/_redux/ColorReducer";
 import OrderReducer from "src/modules/order/_redux/OrderReducer";
 import ProductReducer from "src/modules/product/_redux/ProductReducer";
+import SellerReducer from "src/modules/seller/_redux/SellerReducer";
 import SizeReducer from "src/modules/size/_redux/SizeReducer";
+import SubCategoryReducer from "src/modules/subCategory/_redux/SubCategoryReducer";
 import UnitReducer from "src/modules/unit/_redux/UnitReducer";
 import UserReducer from "src/modules/user/_redux/UserReducer";
 
@@ -17,6 +19,8 @@ const rootReducer = combineReducers({
   sizeInfo: SizeReducer,
   colorInfo: ColorReducer,
   categoryInfo: CategoryReducer,
+  subCategoryInfo: SubCategoryReducer,
+  sellerInfo: SellerReducer,
   productInfo: ProductReducer,
   userInfo: UserReducer,
   orderInfo: OrderReducer,

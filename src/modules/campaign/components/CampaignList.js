@@ -2,23 +2,23 @@ import React, { useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { confirmAlert } from "react-confirm-alert";
 import "react-confirm-alert/src/react-confirm-alert.css";
-import { AfterDeletedFalse, CategoryDelete, GetCategoryList } from "../_redux/CategoryAction";
+import { AfterDeletedFalse, BrandDelete, GetBrandList } from "../_redux/BrandAction";
 import { useHistory } from "react-router-dom";
-const CategoryList = () => {
+const BrandList = () => {
   const history = useHistory();
-  const categoryArrList = useSelector(
-    (state) => state.categoryInfo.categoryList
+  const brandArrList = useSelector(
+    (state) => state.brandInfo.brandList
   );
   const afterDeleted = useSelector(
-    (state) => state.categoryInfo.afterDeleted
+    (state) => state.brandInfo.afterDeleted
   );
   const dispatch = useDispatch();
   useEffect(() => {
-    dispatch(GetCategoryList());
+    dispatch(GetBrandList());
   }, []);
   useEffect(() => {
     if (afterDeleted) {
-      dispatch(GetCategoryList());
+      dispatch(GetBrandList());
       dispatch(AfterDeletedFalse());
     }
 
@@ -26,11 +26,11 @@ const CategoryList = () => {
   const handleDelete = (id) => {
     confirmAlert({
       title: "Confirm To Delete",
-      message: `Are you sure to delete this category?`,
+      message: `Are you sure to delete this brand?`,
       buttons: [
         {
           label: "Yes",
-          onClick: () => dispatch(CategoryDelete(id)),
+          onClick: () => dispatch(BrandDelete(id)),
         },
         {
           label: "No",
@@ -42,30 +42,30 @@ const CategoryList = () => {
   return (
     <>
       <div className="d-flex justify-content-between">
-        <h4>Category List</h4>
+        <h4>Brand List</h4>
         <a
           className="btn btn-success btn-sm text-light"
-          onClick={() => history.push("/category-add")}
+          onClick={() => history.push("/brand-add")}
         >
-          Add Category
+          Add Brand
         </a>
       </div>
       <div className="mt-3">
-        {categoryArrList != null && categoryArrList.length > 0 && (
+        {brandArrList != null && brandArrList.length > 0 && (
           <table className="table table-striped">
             <thead>
               <tr>
                 <th>SL</th>
-                <th>Category Name</th>
+                <th>Brand Name</th>
                 <th>Status</th>
                 <th>Action</th>
               </tr>
             </thead>
             <tbody>
-              {categoryArrList.map((item, index) => (
+              {brandArrList.map((item, index) => (
                 <tr>
                   <td>{index + 1}</td>
-                  <td>{item.categoryName}</td>
+                  <td>{item.brandName}</td>
                   <td>{item.isActive ? "Active" : "Inactive"}</td>
                   <td>
                     <a
@@ -85,4 +85,4 @@ const CategoryList = () => {
   );
 };
 
-export default CategoryList;
+export default BrandList;
