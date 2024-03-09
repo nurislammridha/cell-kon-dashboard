@@ -5,6 +5,7 @@ import "font-awesome/css/font-awesome.min.css";
 import "bootstrap/dist/css/bootstrap.min.css";
 import "./assets/style/style.css";
 import "react-datepicker/dist/react-datepicker.css";
+import "react-draft-wysiwyg/dist/react-draft-wysiwyg.css";
 const loading = (
   <div className="pt-3 text-center">
     <div className="sk-spinner sk-spinner-pulse"></div>

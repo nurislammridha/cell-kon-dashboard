@@ -72,3 +72,18 @@ export const SubCategoryDelete = (id) => (dispatch) => {
 export const AfterDeletedFalse = () => (dispatch) => {
   dispatch({ type: Types.AFTER_DELETED, payload: false })
 }
+export const SubCategoryByCategoryId = (id) => (dispatch) => {
+  const url = `${process.env.REACT_APP_API_URL}sub-category/by-category/${id}`;
+  try {
+    Axios.get(url).then((res) => {
+      if (res.data.status) {
+        // showToast("success", res.data.message);
+        dispatch({ type: Types.SUBCATEGORY_LIST, payload: res.data.result });
+      } else {
+        showToast("error", "Something went wrong");
+      }
+    });
+  } catch (error) {
+    showToast("error", "Something went wrong");
+  }
+};

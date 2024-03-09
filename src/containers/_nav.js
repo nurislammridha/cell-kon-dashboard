@@ -54,12 +54,12 @@ const _nav = [
     to: "/seller",
     icon: <CIcon name="cil-speedometer" customClasses="c-sidebar-nav-icon" />,
   },
-  // {
-  //   _tag: "CSidebarNavItem",
-  //   name: "Propduct",
-  //   to: "/product",
-  //   icon: <CIcon name="cil-speedometer" customClasses="c-sidebar-nav-icon" />,
-  // },
+  {
+    _tag: "CSidebarNavItem",
+    name: "Propduct",
+    to: "/product",
+    icon: <CIcon name="cil-speedometer" customClasses="c-sidebar-nav-icon" />,
+  },
   // {
   //   _tag: "CSidebarNavItem",
   //   name: "User",

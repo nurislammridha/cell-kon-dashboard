@@ -3,11 +3,21 @@ import Axios from "axios";
 import { showToast } from "src/utils/ToastHelper";
 //test//est//
 
-export const GetProductInput = (name, value) => (dispatch) => {
+export const GetProductInput = (name, value, e) => (dispatch) => {
   const formData = {
     name: name,
     value: value,
   };
+  if (name === "productImage") {
+    let reader = new FileReader();
+    const file = e.target.files[0];
+    reader.onloadend = () => {
+      formData.name = "imagePreviewUrl";
+      formData.value = reader.result;
+      dispatch({ type: Types.GET_PRODUCT_INPUT, payload: formData });
+    };
+    reader.readAsDataURL(file);
+  }
   dispatch({ type: Types.GET_PRODUCT_INPUT, payload: formData });
 
 };
@@ -222,6 +232,73 @@ export const getCategoryOption = (data) => {
       const obj = {
         label: item.categoryName,
         value: item._id
+      };
+      arr.push(obj);
+    });
+  }
+  return arr;
+};
+
+export const getSubCategoryOption = (data) => {
+  const arr = [];
+  if (data && data.length > 0) {
+    data.forEach((item) => {
+      const obj = {
+        label: item.subCategoryName,
+        value: item._id
+      };
+      arr.push(obj);
+    });
+  }
+  return arr;
+};
+export const getSellerOption = (data) => {
+  const arr = [];
+  if (data && data.length > 0) {
+    data.forEach((item) => {
+      const obj = {
+        label: item.sellerName,
+        value: item._id
+      };
+      arr.push(obj);
+    });
+  }
+  return arr;
+};
+export const getBrandOption = (data) => {
+  const arr = [];
+  if (data && data.length > 0) {
+    data.forEach((item) => {
+      const obj = {
+        label: item.brandName,
+        value: item._id
+      };
+      arr.push(obj);
+    });
+  }
+  return arr;
+};
+export const getSizeOption = (data) => {
+  const arr = [];
+  if (data && data.length > 0) {
+    data.forEach((item) => {
+      const obj = {
+        label: item.sizeName,
+        value: item._id
+      };
+      arr.push(obj);
+    });
+  }
+  return arr;
+};
+export const getColorOption = (data) => {
+  const arr = [];
+  if (data && data.length > 0) {
+    data.forEach((item) => {
+      const obj = {
+        label: item.colorName,
+        value: item._id,
+        colorHexCode: item.colorHexCode
       };
       arr.push(obj);
     });
