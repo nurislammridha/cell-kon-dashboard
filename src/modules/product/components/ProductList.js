@@ -4,21 +4,16 @@ import { confirmAlert } from "react-confirm-alert";
 import "react-confirm-alert/src/react-confirm-alert.css";
 import { useHistory } from "react-router-dom";
 import {
-  getCategoryOption,
   GetProductByCategory,
-  GetproductList,
+  GetProductList,
   PreUpdateProduct,
   ProductDelete,
 } from "../_redux/ProductAction";
 import Select from "react-select";
-import { GetCategoryList } from "src/modules/category/_redux/CategoryAction";
 const ProductList = () => {
   const history = useHistory();
   const [category, setCategory] = useState("");
   const productArrList = useSelector((state) => state.productInfo.productList);
-  const categoryArrList = useSelector(
-    (state) => state.categoryInfo.categoryList
-  );
   const dispatch = useDispatch();
   useEffect(() => {
     // dispatch(GetproductList());
@@ -48,7 +43,7 @@ const ProductList = () => {
     }
   }, [category]);
   useEffect(() => {
-    dispatch(GetCategoryList());
+    dispatch(GetProductList());
   }, []);
   return (
     <>
@@ -57,14 +52,14 @@ const ProductList = () => {
           <h6>Product List</h6>
         </div>
         <div className="col-sm-2">
-          <h6>Select Category</h6>
+          {/* <h6>Select Category</h6> */}
         </div>
         <div className="col-sm-2">
-          <Select
+          {/* <Select
             options={getCategoryOption(categoryArrList)}
             value={{ label: category.label }}
             onChange={(e) => setCategory(e)}
-          />
+          /> */}
         </div>
         <div className="col-sm-4"></div>
         <div className="col-sm-2">
@@ -83,13 +78,11 @@ const ProductList = () => {
               <tr>
                 <th>SL</th>
                 <th>Name</th>
-                <th>Bangla Name</th>
+                <th>Mrp</th>
+                <th>Quantity</th>
+                <th>Seller</th>
                 <th>Category</th>
-                <th>Discount</th>
-                <th>Code</th>
-                <th>Priority</th>
-                <th>Status</th>
-                <th>Photo</th>
+                <th>ICON</th>
                 <th>Action</th>
               </tr>
             </thead>
@@ -98,29 +91,24 @@ const ProductList = () => {
                 <tr>
                   <td>{index + 1}</td>
                   <td>{item.productName}</td>
-                  <td>{item.productNameBn}</td>
+                  <td>{item.mrp}</td>
+                  <td>{item.availableQuantity}</td>
+                  <td>{item.sellerName}</td>
                   <td>{item.categoryName}</td>
-                  <td>{item.discountPrice}</td>
-                  <td>{item.productCode}</td>
-                  <td>{item.priority}</td>
-                  <td>{item.isActive === "true" ? "ON" : "OFF"}</td>
                   <td>
                     <img
-                      src={
-                        process.env.REACT_APP_IMG_URL +
-                        item.productImage.substring(2)
-                      }
+                      src={item.productIcon.url}
                       width="60"
                       height="40"
                     />
                   </td>
                   <td>
-                    <a
+                    {/* <a
                       className="btn btn-outline-success btn-sm mr-2"
                       onClick={() => handleEdit(item)}
                     >
                       <i className="fa fa-pencil"></i>
-                    </a>
+                    </a> */}
                     <a
                       className="btn btn-danger btn-sm"
                       onClick={() => handleDelete(item._id)}

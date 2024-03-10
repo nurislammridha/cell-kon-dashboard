@@ -232,7 +232,7 @@ export const UpdateProduct = (data) => (dispatch) => {
 export const FalseUpdate = () => (dispatch) => {
   dispatch({ type: Types.AFTER_UPDATE_PRODUCT, payload: false });
 };
-export const GetproductList = () => (dispatch) => {
+export const GetProductList = () => (dispatch) => {
   const url = `${process.env.REACT_APP_API_URL}product`;
   try {
     Axios.get(url).then((res) => {
@@ -276,7 +276,8 @@ export const ProductDelete = (id) => (dispatch) => {
   try {
     Axios.delete(url).then((res) => {
       if (res.data.status) {
-        showToast("error", res.data.message);
+        showToast("success", res.data.message);
+        dispatch(GetProductList())
       }
     });
   } catch (error) {
