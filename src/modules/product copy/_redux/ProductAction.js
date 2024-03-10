@@ -1,70 +1,66 @@
 import * as Types from "./Types";
 import Axios from "axios";
 import { showToast } from "src/utils/ToastHelper";
-import draftToHtml from "draftjs-to-html";
-import { convertToRaw } from "draft-js";
 //test//est//
 
-export const GetProductInput = (name, value) => (dispatch) => {
-  // console.log('name,value', name, value)
+export const GetProductInput = (name, value, e, preview) => (dispatch) => {
   const formData = {
     name: name,
     value: value,
   };
+  //for adding img in array
+  if (name === "add") {
 
+  }
+  if (name === "productIcon" || name === "productImg") {
+    let reader = new FileReader();
+    const file = e.target.files[0];
+    reader.onloadend = () => {
+      formData.name = preview;
+      formData.value = reader.result;
+      dispatch({ type: Types.GET_PRODUCT_INPUT, payload: formData });
+    };
+    reader.readAsDataURL(file);
+  }
   dispatch({ type: Types.GET_PRODUCT_INPUT, payload: formData });
 };
-const PostImg = (name, img) => (dispatch) => {
-  console.log('img', img)
-  const data = new FormData();
-  data.append("file", img);
-  data.append("upload_preset", "nurislam");
-  data.append("cloud_name ", "nurislammridha");
-  const url = "https://api.cloudinary.com/v1_1/nurislammridha/image/upload"
-  console.log('name,url,data', name, url, data)
-  Axios.post(url, data).then((res) => {
-    console.log('res.data', res.data)
-    if (res.data) {
-      dispatch({ type: Types.GET_PRODUCT_INPUT, payload: { name, value: { publicId: res?.data?.public_id, url: res?.data?.url } } })
-    }
-  }
-  )
-}
-export const removeImg = (name, value, publicId) => (dispatch) => {
-  const urlRemove = `${process.env.REACT_APP_API_URL}helper/delete-cloudinary`;
-  Axios.post(urlRemove, { publicId }).then((res) => {
-    if (res) {
-      dispatch(GetProductInput(name, value))
-    }
-  })
-}
-export const UploadCloudinary = (name, img, productInput) => (dispatch) => {
-  if (img.type === "image/jpeg" || img.type === "image/png") {
+export const UploadCloudinary = (name, value, productInput) => async (dispatch) => {
+  if (value.type === "image/jpeg" || value.type === "image/png") {
+    const data = new FormData();
+    // data.append("file", value);
+    // data.append("upload_preset", "nurislam");
+    // data.append("cloud_name ", "nurislammridha");
+    // const url = "https://api.cloudinary.com/v1_1/nurislammridha/image/upload"
+    // const imgId = "azgytj1oaemmse7q03c5"//productInput.productIcon.imgId
+    // const timestamp = new Date().getTime()
+    // const string = `public_id=${imgId}&timestamp=${timestamp}CqPj1pr6nHsFnxxySMS9IuA2-VU`
+    // const signature = await sha1(string)
+    // const formData = new FormData()
+    // formData.append("public_id", imgId)
+    // formData.append("signature", signature)
+    // formData.append("api_key", "867786851463999")
+    // formData.append("timestamp", timestamp)
+    // Axios.post("https://api.cloudinary.com/v1_1/nurislammridha/image/destroy", formData).then((res) => {
+    //   console.log('res', res)
+    // })
 
-    const urlRemove = `${process.env.REACT_APP_API_URL}helper/delete-cloudinary`;
-    if (name === "productIcon") {
-      let publicId = productInput.productIcon.publicId
-      if (publicId !== null) {
-        Axios.post(urlRemove, { publicId }).then((res) => {
-          if (res) {
-            dispatch(PostImg(name, img))
-          }
-        })
-      } else {
-        dispatch(PostImg(name, img))
-      }
-    } else if (name === "productImg") {
-      let publicId = productInput.productImg.publicId
-      if (publicId !== null) {
-        Axios.post(urlRemove, { publicId }).then((res) => {
-          if (res) {
-            dispatch(PostImg(name, img))
-          }
-        })
-      } else {
-        dispatch(PostImg(name, img))
-      }
-    }
+    // if (imgId !== null) {
+    //   //after change   
+    //   cloudinary.uploader.destroy(imgId, (res) => {
+    //     console.log('res', res)
+    //   })
+    // }
+    // Axios.post(url, data).then((res) => {
+    //   console.log('res', res)
+    //   if (res.data) {
+    //     const formVal = {
+    //       name: name,
+    //       value: { imgId: res.data.public_id, imgUrl: res.data.url },
+    //     };
+    //     dispatch({ type: Types.GET_PRODUCT_INPUT, payload: formVal });
+    //   }
+
+    // })
   } else {
     showToast("error", "Image should be jpg/jpeg/png");
   }
@@ -72,68 +68,70 @@ export const UploadCloudinary = (name, img, productInput) => (dispatch) => {
 };
 export const SubmitProduct = (data) => (dispatch) => {
   const { productName, rp, mrp, regularDiscount, campaignDiscount, unitName,
-    categoryName, size,
-    subCategoryName, brandName,
+    unitId, colorName, colorId, sizeName, sizeId, categoryName, categoryId,
+    subcategoryName, subCategoryId, brandName, brandId,
     sellerName, availableQuantity,
     shortDescriptions,
-    productIcon, productImgColor, longDescriptionView
+    longDescriptions,
+    productImgUrl,
+    productIconUrl,
   } = data
-  if (productName.length === 0) {
-    showToast("error", "Product name shouldn't be empty");
-    return 0;
-  } else if (rp <= 0) {
-    showToast("error", "Rp should be greater than zero");
-    return 0;
-  } else if (mrp <= 0) {
-    showToast("error", "Mrp should be greater than zero");
-    return 0;
-  } else if (regularDiscount <= 0) {
-    showToast("error", "Regular discount should be greater than zero");
-    return 0;
-  } else if (campaignDiscount <= 0) {
-    showToast("error", "Campaign should be greater than zero");
-    return 0;
-  } else if (availableQuantity <= 0) {
-    showToast("error", "Quantity should be greater than zero");
-    return 0;
-  } else if (productIcon.public_d <= 0) {
-    showToast("error", "Select product icon");
-    return 0;
-  } else if (productImgColor.length === 0) {
-    showToast("error", "Select products image with releted color");
-    return 0;
-  } else if (categoryName.length === 0) {
-    showToast("error", "select a category");
-    return 0;
-  } else if (subCategoryName.length === 0) {
-    showToast("error", "select a subcategory category");
-    return 0;
-  } else if (sellerName.length === 0) {
-    showToast("error", "Select a seller");
-    return 0;
-  } else if (unitName.length === 0) {
-    showToast("error", "You should select unit name");
-    return 0;
-  } else if (brandName.length === 0) {
-    showToast("error", "Select a brand");
-    return 0;
-  } else if (size.length === 0) {
-    showToast("error", "You should select product size");
-    return 0;
-  } else if (shortDescriptions.length === 0) {
-    showToast("error", "short description should n't be empty");
-    return 0;
-  } else if (longDescriptionView.length === 0) {
-    showToast("error", "Long description should n't be empty");
-    return 0;
-  }
-  const proxy = longDescriptionView
-  data.longDescriptions = draftToHtml(
-    convertToRaw(proxy.getCurrentContent())
-  );
+  // if (productName.length === 0) {
+  //   showToast("error", "Product name shouldn't be empty");
+  //   return 0;
+  // } else if (rp <= 0) {
+  //   showToast("error", "Rp should be greater than zero");
+  //   return 0;
+  // } else if (mrp > 0) {
+  //   showToast("error", "Mrp should be greater than zero");
+  //   return 0;
+  // } else if (regularDiscount > 0) {
+  //   showToast("error", "Regular discount should be greater than zero");
+  //   return 0;
+  // } else if (campaignDiscount > 0) {
+  //   showToast("error", "Campaign should be greater than zero");
+  //   return 0;
+  // } else if (unitName.length === 0) {
+  //   showToast("error", "You should select unit name");
+  //   return 0;
+  // } else if (colorName.length === 0) {
+  //   showToast("error", "You should select a color");
+  //   return 0;
+  // } else if (sizeName.length === 0) {
+  //   showToast("error", "You should select a color");
+  //   return 0;
+  // } else if (categoryName.length === 0) {
+  //   showToast("error", "select a category");
+  //   return 0;
+  // } else if (subcategoryName.length === 0) {
+  //   showToast("error", "select a subcategory category");
+  //   return 0;
+  // } else if (brandName.length === 0) {
+  //   showToast("error", "Select a brand");
+  //   return 0;
+  // } else if (sellerName.length === 0) {
+  //   showToast("error", "Select a seller");
+  //   return 0;
+  // } else if (shortDescriptions.length === 0) {
+  //   showToast("error", "Short description should n't be empty");
+  //   return 0;
+  // } else if (longDescriptions.length === 0) {
+  //   showToast("error", "Long description should n't be empty");
+  //   return 0;
+  // } else if (shortDescriptions.length === 0) {
+  //   showToast("error", "short description should n't be empty");
+  //   return 0;
+  // } else if (productImgUrl.length === 0) {
+  //   showToast("error", "product Img url should n't be empty");
+  //   return 0;
+  // } else if (productIconUrl.length === 0) {
+  //   showToast("error", "Product Icon url should n't be empty");
+  //   return 0;
+  // }
   const url = `${process.env.REACT_APP_API_URL}product`;
   dispatch({ type: Types.IS_CREATE_PRODUCT, payload: true });
-  // console.log('data', data)
+  // const formData = new FormData();
+  console.log('data', data)
   try {
     Axios.post(url, data)
       .then((res) => {
@@ -234,18 +232,6 @@ export const FalseUpdate = () => (dispatch) => {
 };
 export const GetproductList = () => (dispatch) => {
   const url = `${process.env.REACT_APP_API_URL}product`;
-  try {
-    Axios.get(url).then((res) => {
-      if (res.data.status) {
-        dispatch({ type: Types.PRODUCT_LIST, payload: res.data.result });
-      }
-    });
-  } catch (error) {
-    showToast("error", "Something went wrong");
-  }
-};
-export const GetProductBySubCategoryId = (id) => (dispatch) => {
-  const url = `${process.env.REACT_APP_API_URL}product/sub-category-id/${id}`;
   try {
     Axios.get(url).then((res) => {
       if (res.data.status) {
@@ -372,19 +358,6 @@ export const getUnitOption = (data) => {
     data.forEach((item) => {
       const obj = {
         label: item.unitName,
-        value: item._id
-      };
-      arr.push(obj);
-    });
-  }
-  return arr;
-};
-export const getProductOption = (data) => {
-  const arr = [];
-  if (data && data.length > 0) {
-    data.forEach((item) => {
-      const obj = {
-        label: item.productName,
         value: item._id
       };
       arr.push(obj);

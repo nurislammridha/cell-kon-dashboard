@@ -7,14 +7,11 @@ import {
   getBrandOption,
   getCategoryOption,
   getColorOption,
-  GetProductBySubCategoryId,
   GetProductInput,
-  getProductOption,
   getSellerOption,
   getSizeOption,
   getSubCategoryOption,
   getUnitOption,
-  removeImg,
   SubmitProduct,
   UploadCloudinary,
 } from "../_redux/ProductAction";
@@ -50,9 +47,6 @@ const CreateProduct = () => {
   const unitArrList = useSelector(
     (state) => state.unitInfo.unitList
   );
-  const productArrList = useSelector(
-    (state) => state.productInfo.productList
-  );
   const productInput = useSelector((state) => state.productInfo.productInput);
   const isCreateProduct = useSelector(
     (state) => state.productInfo.isCreateProduct
@@ -65,13 +59,10 @@ const CreateProduct = () => {
   const handleChangeInput = (name, value, e, preview) => {
     dispatch(GetProductInput(name, value, e, preview));
   };
-  const handleChangeImg = (name, value) => {
-    dispatch(UploadCloudinary(name, value, productInput));
-  };
-  const handleAdd = (action, data = {}) => {
-    const oldArr = productInput.productImgColor
+  const handleAdd = (action, colorHexCode = "") => {
+    const oldArr = productInput.productImgArr
     if (action === "add") {
-      if (productInput.productImg.publicId === null) {
+      if (productInput.productImgPreview.length === 0) {
         showToast("error", "select img")
         return 0
       } else if (productInput.colorName.length === 0) {
@@ -79,23 +70,23 @@ const CreateProduct = () => {
         return 0
       }
       const obj = {
-        url: productInput.productImg.url,
-        publicId: productInput.productImg.publicId,
+        img: productInput.productImg,
+        preview: productInput.productImgPreview,
         colorName: productInput.colorName,
         colorId: productInput.colorId,
         colorHexCode: productInput.colorHexCode
       }
       oldArr.push(obj)
-      handleChangeInput("productImgColor", oldArr)
+      handleChangeInput("productImgArr", oldArr)
       // handleChangeInput("productImg", "")
-      handleChangeInput("productImg", { url: "", publicId: null })
+      handleChangeInput("productImgPreview", "")
+      handleChangeInput("colorName", "")
       handleChangeInput("colorId", "")
       handleChangeInput("colorName", "")
       handleChangeInput("colorHexCode", "")
     } else if (action === "remove") {
-      const newArr = oldArr.filter((val) => val.colorHexCode !== data.colorHexCode)
-      dispatch(removeImg("productImgColor", newArr, data.publicId));
-      // dispatch(GetProductInput("productImgColor", newArr));
+      const newArr = oldArr.filter((val) => val.colorHexCode !== colorHexCode)
+      dispatch(GetProductInput("productImgArr", newArr));
     }
   };
   useEffect(() => {
@@ -105,15 +96,11 @@ const CreateProduct = () => {
     dispatch(GetSizeList());
     dispatch(GetColorList());
     dispatch(GetUnitList());
-
     // dispatch(GetProductList());
   }, []);
   useEffect(() => {
     if (productInput.categoryName.length > 0) {
       dispatch(SubCategoryByCategoryId(productInput.categoryId));
-    }
-    if (productInput.subCategoryId.length > 0) {
-      dispatch(GetProductBySubCategoryId(productInput.subCategoryId));
     }
 
   }, [productInput]);
@@ -200,7 +187,7 @@ const CreateProduct = () => {
               accept="image/*"
               id="file-upload"
               onChange={(e) =>
-                handleChangeImg("productIcon", e.target.files[0])
+                handleChangeInput("productIcon", e.target.files[0], e, "productIconPreview")
               }
             />
             <label
@@ -211,7 +198,7 @@ const CreateProduct = () => {
               <i class="fa fa-upload"></i>
             </label>
             <img
-              src={productInput?.productIcon?.publicId === null ? demoProduct : productInput?.productIcon?.url}
+              src={productInput?.productIconPreview.length > 0 ? productInput?.productIconPreview : demoProduct}
               alt="Product Icon"
               className="preview-img"
             />
@@ -226,7 +213,7 @@ const CreateProduct = () => {
                   accept="image/*"
                   id="file-upload2"
                   onChange={(e) =>
-                    handleChangeImg("productImg", e.target.files[0])
+                    handleChangeInput("productImg", e.target.files[0], e, "productImgPreview")
                   }
                 />
                 <label
@@ -238,7 +225,7 @@ const CreateProduct = () => {
                 </label>
                 <div>
                   <img
-                    src={productInput?.productImg?.publicId === null ? demoProduct : productInput?.productImg?.url}
+                    src={productInput.productImgPreview.length > 0 ? productInput.productImgPreview : demoProduct}
                     alt="Product Icon"
                     className="preview-mul-img"
                   />
@@ -266,7 +253,7 @@ const CreateProduct = () => {
               </a>
             </div>
             <div className="mt-2">
-              {productInput.productImgColor.length > 0 && (
+              {productInput.productImgArr.length > 0 && (
                 <table className="table table-sm">
                   <thead>
                     <tr>
@@ -277,11 +264,11 @@ const CreateProduct = () => {
                     </tr>
                   </thead>
                   <tbody>
-                    {productInput.productImgColor.map((item, index) => (
+                    {productInput.productImgArr.map((item, index) => (
                       <tr>
                         <td>
                           <img
-                            src={item.url}
+                            src={item.preview}
                             alt="Products"
                             className="tbl-img"
                           />
@@ -290,7 +277,7 @@ const CreateProduct = () => {
                         <td><div className="tbl-color" style={{ backgroundColor: item.colorHexCode }}></div></td>
                         <td> <a
                           className="btn btn-danger btn-sm"
-                          onClick={() => handleAdd("remove", item)}
+                          onClick={() => handleAdd("remove", item.colorHexCode)}
                         >
                           <i className="fa fa-trash"></i>
                         </a></td>
@@ -315,7 +302,6 @@ const CreateProduct = () => {
                 handleChangeInput("categoryId", e.value);
                 handleChangeInput("subCategoryName", "");
                 handleChangeInput("subCategoryId", "");
-                handleChangeInput("relatedProducts", []);
               }}
             />
           </div>
@@ -371,17 +357,19 @@ const CreateProduct = () => {
               isMulti
               onChange={(e) => {
                 handleChangeInput("size", e);
+                // handleChangeInput("sizeId", e.value);
               }}
             />
           </div>
           <div className="mt-2">
             <h6>Select Related Products</h6>
             <Select
-              options={getProductOption(productArrList)}
-              value={productInput.relatedProducts}
+              options={getCategoryOption(categoryArrList)}
+              isDisabled
+              value={{ label: [] }}
               isMulti
               onChange={(e) => {
-                handleChangeInput("relatedProducts", e);
+                handleChangeInput("categoryName", e);
               }}
             />
           </div>

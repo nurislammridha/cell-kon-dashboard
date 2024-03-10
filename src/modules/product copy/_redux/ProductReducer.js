@@ -28,11 +28,16 @@ const initialState = {
     shortDescriptions: "",
     longDescriptions: "",
     longDescriptionView: "",
-    productImg: { url: "", publicId: null },
-    productImgColor: [],
-    productIcon: { url: "", publicId: null },
+    productImg: "",
+    productImgPreview: "",
+    productImgArr: [],
+    productIcon: "",
+    productIconPreview: "",
     relatedProducts: [],
     isAvailableCashOnDelivery: false,
+    productIconPublicId: "",//for backend
+    productIconUrl: "",//for backend
+    productImgColor: []//for backend
   },
   isCreateProduct: false,
   afterUpdate: false,
@@ -59,7 +64,6 @@ const ProductReducer = (state = initialState, action) => {
       };
     case Types.AFTER_CREATE_PRODUCT:
       const productInputAfter = initialState.productInput;
-      productInputAfter.productImgColor = []
       return {
         ...state,
         productInput: productInputAfter,
