@@ -7,7 +7,7 @@ import {
 } from "../_redux/OrderAction";
 import { useHistory } from "react-router-dom";
 
-const OrderProcessing = () => {
+const OrderPicked = () => {
   const dispatch = useDispatch();
   const history = useHistory()
   const [loader, setLoader] = useState("");
@@ -16,7 +16,7 @@ const OrderProcessing = () => {
   const isUpdating = useSelector((state) => state.orderInfo.isUpdating);
 
   useEffect(() => {
-    dispatch(GetOrderList("Confirmed"));
+    dispatch(GetOrderList("Processing"));
   }, []);
   const handleUpdate = (id, isCancel) => {
     const date = new Date()
@@ -30,19 +30,19 @@ const OrderProcessing = () => {
       };
     } else {
       data = {
-        isProcessing: true,
-        orderStatus: "Processing",
-        processedAt: date
+        isPicked: true,
+        orderStatus: "Picked",
+        pickedAt: date
       };
     }
 
-    dispatch(statusUpdate(data, id, "Confirmed"));
+    dispatch(statusUpdate(data, id, "Processing"));
   };
   return (
     <>
       <div className="row bg-light py-2">
         <div className="col-sm-2">
-          <h6>All Confirmed Order</h6>
+          <h6>Picked Orders</h6>
         </div>
       </div>
       <div className="mt-3">
@@ -62,7 +62,7 @@ const OrderProcessing = () => {
                 <th>Name</th>
                 <th>Phone</th>
                 <th>View</th>
-                <th>Processing</th>
+                <th>Picked</th>
                 <th>Cancel</th>
               </tr>
             </thead>
@@ -97,7 +97,7 @@ const OrderProcessing = () => {
                         className="btn btn-success btn-sm text-light"
                         onClick={() => handleUpdate(item._id, false)}
                       >
-                        PROCESSING
+                        PICKED
                       </a>
                     )}
                   </td>
@@ -130,4 +130,4 @@ const OrderProcessing = () => {
   );
 };
 
-export default OrderProcessing;
+export default OrderPicked;

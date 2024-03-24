@@ -4,9 +4,23 @@ import { showToast } from "src/utils/ToastHelper";
 import moment from "moment";
 //test//est//
 
-export const GetOrderList = (date, status) => (dispatch) => {
-  const seDate = moment(date).format("DD-MM-YYYY");
-  const url = `${process.env.REACT_APP_API_URL}order/status?date=${seDate}&status=${status}`;
+export const GetOrderById = (id) => (dispatch) => {
+  const url = `${process.env.REACT_APP_API_URL}order/order-details/${id}`;
+  dispatch({ type: Types.IS_ORDER_DETAILS, payload: true });
+  try {
+    Axios.get(url).then((res) => {
+      if (res.data.status) {
+        dispatch({ type: Types.ORDER_DETAILS, payload: res.data.result });
+        dispatch({ type: Types.IS_ORDER_DETAILS, payload: false });
+      }
+    });
+  } catch (error) {
+    showToast("error", "Something went wrong");
+  }
+};
+
+export const GetOrderList = (status) => (dispatch) => {
+  const url = `${process.env.REACT_APP_API_URL}order/order-status?orderStatus=${status}`;
   dispatch({ type: Types.IS_ORDER_LIST, payload: true });
   try {
     Axios.get(url).then((res) => {
@@ -19,7 +33,7 @@ export const GetOrderList = (date, status) => (dispatch) => {
     showToast("error", "Something went wrong");
   }
 };
-export const statusUpdate = (data, id) => (dispatch) => {
+export const statusUpdate = (data, id, status) => (dispatch) => {
   const url = `${process.env.REACT_APP_API_URL}order/${id}`;
   dispatch({ type: Types.IS_UPDATING, payload: true });
   try {
@@ -27,7 +41,8 @@ export const statusUpdate = (data, id) => (dispatch) => {
       if (res.data.status) {
         showToast("success", res.data.message);
         dispatch({ type: Types.IS_UPDATING, payload: false });
-        dispatch({ type: Types.AFTER_UPDATE_STATUS, payload: true });
+        dispatch(GetOrderList(status));
+        // dispatch({ type: Types.AFTER_UPDATE_STATUS, payload: true });
       }
     });
   } catch (error) {

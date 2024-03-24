@@ -22,6 +22,7 @@ const initialState = {
     brandId: "",
     sellerName: "",
     sellerId: "",
+    sellerInfo: "",//seller id
     availableQuantity: 0,
     isCampaign: false,
     isTrendings: false,

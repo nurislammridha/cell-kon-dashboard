@@ -60,6 +60,49 @@ const _nav = [
     to: "/product",
     icon: <CIcon name="cil-speedometer" customClasses="c-sidebar-nav-icon" />,
   },
+  {
+    _tag: "CSidebarNavDropdown",
+    name: "Order Management",
+    route: "",
+    icon: "cil-puzzle",
+    _children: [
+      {
+        _tag: "CSidebarNavItem",
+        name: "Order Confirm",
+        to: "/order-confirm",
+      },
+      {
+        _tag: "CSidebarNavItem",
+        name: "Order Processing",
+        to: "/order-processing",
+      },
+      {
+        _tag: "CSidebarNavItem",
+        name: "Order Picked",
+        to: "/order-picked",
+      },
+      {
+        _tag: "CSidebarNavItem",
+        name: "Order Shipped",
+        to: "/order-shipped",
+      },
+      {
+        _tag: "CSidebarNavItem",
+        name: "Order Delivered",
+        to: "/order-delivered",
+      },
+      {
+        _tag: "CSidebarNavItem",
+        name: "Delivered List",
+        to: "/delivered-list",
+      },
+      {
+        _tag: "CSidebarNavItem",
+        name: "Cancel List",
+        to: "/cancelled-list",
+      },
+    ]
+  }
   // {
   //   _tag: "CSidebarNavItem",
   //   name: "User",

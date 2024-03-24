@@ -1,8 +1,6 @@
 import React from "react";
 import CreateCategoryContainer from "./modules/category/views/CreateCategoryContainer";
-import OrderAcceptContainer from "./modules/order/views/OrderAcceptContainer";
 import OrderDeliveredContainer from "./modules/order/views/OrderDeliveredContainer";
-import OrderDeliveringContainer from "./modules/order/views/OrderDeliveringContainer";
 import OrderProcessingContainer from "./modules/order/views/OrderProcessingContainer";
 import CreateProductContainer from "./modules/product/views/CreateProductContainer";
 import EditProductContainer from "./modules/product/views/EditProductContainer";
@@ -21,6 +19,12 @@ import ColorListContainer from "./modules/color/views/ColorListContainer";
 import SizeListContainer from "./modules/size/views/SizeListContainer";
 import UnitListContainer from "./modules/unit/views/UnitListContainer";
 import BrandListContainer from "./modules/brand/views/BrandListContainer";
+import OrderConfirmContainer from "./modules/order/views/OrderConfirmContainer";
+import OrderCancelledContainer from "./modules/order/views/OrderCancelledContainer";
+import OrderPickedContainer from "./modules/order/views/OrderPickedContainer";
+import OrderShippedContainer from "./modules/order/views/OrderShippedContainer";
+import OrderDetailsContainer from "./modules/order/views/OrderDetailsContainer";
+import DeliveredOrderContainer from "./modules/order/views/DeliveredOrderContainer";
 
 const Dashboard = React.lazy(() => import("./views/dashboard/Dashboard"));
 
@@ -98,9 +102,19 @@ const routes = [
     component: UserListContainer,
   },
   {
-    path: "/order-accept",
-    name: "Order Accept",
-    component: OrderAcceptContainer,
+    path: "/order-confirm",
+    name: "Order Confirm",
+    component: OrderConfirmContainer,
+  },
+  {
+    path: "/order-details/:id",
+    name: "Order Details",
+    component: OrderDetailsContainer,
+  },
+  {
+    path: "/cancelled-list",
+    name: "Order Cancel",
+    component: OrderCancelledContainer,
   },
   {
     path: "/order-processing",
@@ -108,14 +122,29 @@ const routes = [
     component: OrderProcessingContainer,
   },
   {
-    path: "/order-delivering",
-    name: "Order Delivering",
-    component: OrderDeliveringContainer,
+    path: "/order-picked",
+    name: "Order Picked",
+    component: OrderPickedContainer,
+  },
+  {
+    path: "/order-shipped",
+    name: "Order Shipped",
+    component: OrderShippedContainer,
+  },
+  {
+    path: "/order-picked",
+    name: "Order Picked",
+    component: OrderPickedContainer,
   },
   {
     path: "/order-delivered",
     name: "Order Delivered",
     component: OrderDeliveredContainer,
+  },
+  {
+    path: "/delivered-list",
+    name: "Delivered order List",
+    component: DeliveredOrderContainer,
   },
 ];
 

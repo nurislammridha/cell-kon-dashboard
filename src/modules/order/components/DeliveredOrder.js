@@ -7,7 +7,7 @@ import {
 } from "../_redux/OrderAction";
 import { useHistory } from "react-router-dom";
 
-const OrderProcessing = () => {
+const DeliveredOrder = () => {
   const dispatch = useDispatch();
   const history = useHistory()
   const [loader, setLoader] = useState("");
@@ -16,33 +16,14 @@ const OrderProcessing = () => {
   const isUpdating = useSelector((state) => state.orderInfo.isUpdating);
 
   useEffect(() => {
-    dispatch(GetOrderList("Confirmed"));
+    dispatch(GetOrderList("Delivered"));
   }, []);
-  const handleUpdate = (id, isCancel) => {
-    const date = new Date()
-    setLoader(id);
-    let data = {}
-    if (isCancel) {
-      data = {
-        isCancel: true,
-        orderStatus: "Cancelled",
-        cancelAt: date
-      };
-    } else {
-      data = {
-        isProcessing: true,
-        orderStatus: "Processing",
-        processedAt: date
-      };
-    }
 
-    dispatch(statusUpdate(data, id, "Confirmed"));
-  };
   return (
     <>
       <div className="row bg-light py-2">
         <div className="col-sm-2">
-          <h6>All Confirmed Order</h6>
+          <h6>All Delivered Order List</h6>
         </div>
       </div>
       <div className="mt-3">
@@ -62,8 +43,6 @@ const OrderProcessing = () => {
                 <th>Name</th>
                 <th>Phone</th>
                 <th>View</th>
-                <th>Processing</th>
-                <th>Cancel</th>
               </tr>
             </thead>
             <tbody>
@@ -83,42 +62,6 @@ const OrderProcessing = () => {
                       <i className="fa fa-eye"></i>
                     </a>
                   </td>
-                  <td>
-                    {isUpdating && item._id === loader ? (
-                      <a className="btn btn-success btn-sm text-light">
-                        <span
-                          class="spinner-border spinner-border-sm"
-                          role="status"
-                          aria-hidden="true"
-                        ></span>
-                      </a>
-                    ) : (
-                      <a
-                        className="btn btn-success btn-sm text-light"
-                        onClick={() => handleUpdate(item._id, false)}
-                      >
-                        PROCESSING
-                      </a>
-                    )}
-                  </td>
-                  <td>
-                    {isUpdating && item._id === loader ? (
-                      <a className="btn btn-success btn-sm text-light">
-                        <span
-                          class="spinner-border spinner-border-sm"
-                          role="status"
-                          aria-hidden="true"
-                        ></span>
-                      </a>
-                    ) : (
-                      <a
-                        className="btn btn-danger btn-sm text-light"
-                        onClick={() => handleUpdate(item._id, true)}
-                      >
-                        CANCEL
-                      </a>
-                    )}
-                  </td>
 
                 </tr>
               ))}
@@ -130,4 +73,4 @@ const OrderProcessing = () => {
   );
 };
 
-export default OrderProcessing;
+export default DeliveredOrder;

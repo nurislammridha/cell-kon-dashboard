@@ -16,6 +16,8 @@ export const SubmitSubCategory = (subCategory, category, categoryId) => (dispatc
     categoryName: category,
     categoryId: categoryId,
     subCategoryName: subCategory,
+    subCategoryImgUrl: "https://picsum.photos/200",
+    categoryImgUrl: "https://picsum.photos/200",
   };
   try {
     Axios.post(url, postData)

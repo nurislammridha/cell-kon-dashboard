@@ -38,7 +38,7 @@ const CategoryList = () => {
       ],
     });
   };
-  console.log('categoryArrList', categoryArrList)
+
   return (
     <>
       <div className="d-flex justify-content-between">

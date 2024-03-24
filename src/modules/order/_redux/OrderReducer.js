@@ -5,6 +5,8 @@ const initialState = {
   isOrderList: false,
   isUpdating: false,
   afterUpdateStatus: false,
+  isOrderDetails: false,
+  orderDetails: null,
 };
 const OrderReducer = (state = initialState, action) => {
   const newState = { ...state };
@@ -28,6 +30,16 @@ const OrderReducer = (state = initialState, action) => {
       return {
         ...state,
         isUpdating: action.payload,
+      };
+    case Types.IS_ORDER_DETAILS:
+      return {
+        ...state,
+        isOrderDetails: action.payload,
+      };
+    case Types.ORDER_DETAILS:
+      return {
+        ...state,
+        orderDetails: action.payload,
       };
 
     default:

@@ -338,6 +338,7 @@ const CreateProduct = () => {
               onChange={(e) => {
                 handleChangeInput("sellerName", e.label);
                 handleChangeInput("sellerId", e.value);
+                handleChangeInput("sellerInfo", e.value);
               }}
             />
           </div>
