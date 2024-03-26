@@ -44,6 +44,48 @@ export const SubmitSubCategory = (subCategory, category, categoryId) => (dispatc
 export const AfterCreatedFalse = () => (dispatch) => {
   dispatch({ type: Types.AFTER_CREATED, payload: false })
 }
+export const SubCategoryUpdate = (subCategory, category, categoryId, id) => (dispatch) => {
+  if (subCategory.length === 0) {
+    showToast("error", "Sub category name shouldn't be empty");
+    return 0;
+  } else if (category.length === 0) {
+    showToast("error", "You Should Select Category Name");
+    return 0;
+  }
+  const url = `${process.env.REACT_APP_API_URL}sub-category/${id}`;
+  dispatch({ type: Types.IS_UPDATE_SUBCATEGORY, payload: true });
+  const postData = {
+    categoryName: category,
+    categoryId: categoryId,
+    subCategoryName: subCategory,
+    subCategoryImgUrl: "https://picsum.photos/200",
+    categoryImgUrl: "https://picsum.photos/200",
+  };
+  try {
+    Axios.put(url, postData)
+      .then((res) => {
+        if (res.data.status) {
+          showToast("success", res.data.message);
+          dispatch({ type: Types.IS_UPDATE_SUBCATEGORY, payload: false });
+          dispatch({ type: Types.AFTER_UPDATED, payload: true });
+        } else {
+          showToast("error", res.data.message);
+          dispatch({ type: Types.IS_UPDATE_SUBCATEGORY, payload: false });
+        }
+      })
+      .catch((err) => {
+        dispatch({ type: Types.IS_UPDATE_SUBCATEGORY, payload: false });
+        const message = JSON.parse(err.request.response).message;
+        showToast("error", message);
+      });
+  } catch (error) {
+    dispatch({ type: Types.IS_UPDATE_SUBCATEGORY, payload: false });
+    showToast("error", "Something went wrong");
+  }
+};
+export const AfterUpdatedFalse = () => (dispatch) => {
+  dispatch({ type: Types.AFTER_UPDATED, payload: false })
+}
 export const GetSubCategoryList = () => (dispatch) => {
   const url = `${process.env.REACT_APP_API_URL}sub-category`;
   try {

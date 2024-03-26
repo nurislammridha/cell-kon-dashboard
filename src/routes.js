@@ -29,6 +29,8 @@ import UpdateBrandContainer from "./modules/brand/views/UpdateBrandContainer";
 import UpdateUnitContainer from "./modules/unit/views/UpdateUnitContainer";
 import UpdateSizeContainer from "./modules/size/views/UpdateSizeContainer";
 import UpdateColorContainer from "./modules/color/views/UpdateColorContainer";
+import UpdateCategoryContainer from "./modules/category/views/UpdateCategoryContainer";
+import UpdateSubCategoryContainer from "./modules/subCategory/views/UpdateSubCategoryContainer";
 
 const Dashboard = React.lazy(() => import("./views/dashboard/Dashboard"));
 
@@ -73,6 +75,7 @@ const routes = [
   },
   //category
   { path: "/category", name: "Category", component: CategoryListContainer },
+  { path: "/category-edit/:id", name: "Category", component: UpdateCategoryContainer },
   {
     path: "/category-add",
     name: "Create Category",
@@ -80,6 +83,7 @@ const routes = [
   },
   //sub category
   { path: "/sub-category", name: "Sub Category", component: SubCategoryListContainer },
+  { path: "/sub-category-edit/:id", name: "Sub Category", component: UpdateSubCategoryContainer },
   {
     path: "/sub-category-add",
     name: "Create Sub Category",

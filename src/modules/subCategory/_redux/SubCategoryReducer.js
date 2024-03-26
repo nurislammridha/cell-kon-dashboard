@@ -2,7 +2,9 @@ import * as Types from "./Types";
 
 const initialState = {
   isSubCategory: false,
+  isUpdate: false,
   afterCreated: false,
+  afterUpdated: false,
   afterDeleted: false,
   subCategoryList: null,
 };
@@ -14,10 +16,20 @@ const SubCategoryReducer = (state = initialState, action) => {
         ...state,
         isSubCategory: action.payload,
       };
+    case Types.IS_UPDATE_SUBCATEGORY:
+      return {
+        ...state,
+        isUpdate: action.payload,
+      };
     case Types.AFTER_CREATED:
       return {
         ...state,
         afterCreated: action.payload,
+      };
+    case Types.AFTER_UPDATED:
+      return {
+        ...state,
+        afterUpdated: action.payload,
       };
     case Types.SUBCATEGORY_LIST:
       return {

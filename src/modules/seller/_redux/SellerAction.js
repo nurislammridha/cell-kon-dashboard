@@ -10,7 +10,7 @@ export const GetSellerInput = (name, value) => (dispatch) => {
   dispatch({ type: Types.GET_SELLER_INPUT, payload: formData });
 }
 export const SubmitSeller = (sellerInput) => (dispatch) => {
-  const { sellerName, sellerAddress, shopName, deliveryPeriod, shopLogoUrl, sellerPhone, sellerEmail } = sellerInput
+  const { sellerName, sellerAddress, shopName, deliveryPeriod, shopLogo, sellerPhone, sellerEmail } = sellerInput
   if (sellerName.length === 0) {
     showToast("error", "Seller Name shouldn't be empty");
     return 0;
@@ -23,7 +23,7 @@ export const SubmitSeller = (sellerInput) => (dispatch) => {
   } else if (deliveryPeriod.length === 0) {
     showToast("error", "Delivery Period shouldn't be empty");
     return 0;
-  } else if (shopLogoUrl.length === 0) {
+  } else if (shopLogo.url.length === 0) {
     showToast("error", "Logo Url shouldn't be empty");
     return 0;
   } else if (sellerPhone.length === 0) {
@@ -85,4 +85,49 @@ export const SellerDelete = (id) => (dispatch) => {
 };
 export const AfterDeletedFalse = () => (dispatch) => {
   dispatch({ type: Types.AFTER_DELETED, payload: false })
+}
+
+const PostImg = (name, img) => (dispatch) => {
+  const data = new FormData();
+  data.append("file", img);
+  data.append("upload_preset", "nurislam");
+  data.append("cloud_name ", "nurislammridha");
+  const url = "https://api.cloudinary.com/v1_1/nurislammridha/image/upload"
+  console.log('name,url,data', name, url, data)
+  dispatch({ type: Types.IS_IMG_LOADING, payload: true })
+  Axios.post(url, data).then((res) => {
+    console.log('res.data', res.data)
+    if (res.data) {
+      dispatch({ type: Types.IS_IMG_LOADING, payload: false })
+      dispatch({ type: Types.GET_SELLER_INPUT, payload: { name, value: { publicId: res?.data?.public_id, url: res?.data?.url } } })
+    }
+  }
+  )
+}
+export const UploadShopLogo = (name, img, productInput) => (dispatch) => {
+  if (img.type === "image/jpeg" || img.type === "image/png") {
+
+    const urlRemove = `${process.env.REACT_APP_API_URL}helper/delete-cloudinary`;
+    let publicId = productInput.shopLogo.publicId
+    if (publicId !== null) {
+      Axios.post(urlRemove, { publicId }).then((res) => {
+        if (res) {
+          dispatch(PostImg(name, img))
+        }
+      })
+    } else {
+      dispatch(PostImg(name, img))
+    }
+  } else {
+    showToast("error", "Image should be jpg/jpeg/png");
+  }
+
+};
+export const RemoveShopImg = (id, publicId) => (dispatch) => {
+  const urlRemove = `${process.env.REACT_APP_API_URL}helper/delete-cloudinary`;
+  Axios.post(urlRemove, { publicId }).then((res) => {
+    if (res) {
+      dispatch(SellerDelete(id))
+    }
+  })
 }

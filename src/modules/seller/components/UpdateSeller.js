@@ -1,11 +1,10 @@
 import React, { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import { AfterCreatedFalse, GetSellerInput, SubmitSeller, UploadShopLogo } from "../_redux/SellerAction";
-import demoProduct from '../../../assets/images/demoProduct.jpg'
-const CreateSeller = () => {
+import { AfterCreatedFalse, GetSellerInput, SubmitSeller } from "../_redux/SellerAction";
+
+const UpdateSeller = () => {
   const sellerInput = useSelector((state) => state.sellerInfo.sellerInput);
-  const isSeller = useSelector((state) => state.sellerInfo.isSeller);
-  const isImageLoading = useSelector((state) => state.sellerInfo.isImageLoading);
+  const isUpdate = useSelector((state) => state.sellerInfo.isUpdate);
   const dispatch = useDispatch();
   const handleChange = (name, value) => {
     dispatch(GetSellerInput(name, value));
@@ -13,9 +12,7 @@ const CreateSeller = () => {
   const handleSubmit = () => {
     dispatch(SubmitSeller(sellerInput));
   };
-  const handleChangeImg = (name, value) => {
-    dispatch(UploadShopLogo(name, value, sellerInput));
-  };
+
   return (
     <>
       <div className="row">
@@ -32,7 +29,7 @@ const CreateSeller = () => {
             />
           </div>
           <div className="mt-3">
-            <h6 className="mb-3">Shop Address</h6>
+            <h6 className="mb-3">Seller Address</h6>
             <input
               className="form-control"
               value={sellerInput.sellerAddress}
@@ -56,8 +53,8 @@ const CreateSeller = () => {
             <input
               className="form-control"
               value={sellerInput.deliveryPeriod}
-              type="text"
-              placeholder="ex: 1 to 5 days"
+              type="number"
+              placeholder="enter delivery periods in days"
               onChange={(e) => handleChange("deliveryPeriod", e.target.value)}
             />
           </div>
@@ -81,38 +78,8 @@ const CreateSeller = () => {
               onChange={(e) => handleChange("sellerEmail", e.target.value)}
             />
           </div>
-          <div className="mt-3">
-            <h6 className="mb-3">Select shop image</h6>
-            <input
-              type="file"
-              className="d-none"
-              accept="image/*"
-              id="file-upload"
-              onChange={(e) =>
-                handleChangeImg("shopLogo", e.target.files[0])
-              }
-            />
-            {isImageLoading ? <span
-              class="spinner-border spinner-border-sm"
-              role="status"
-              aria-hidden="true"
-            ></span> :
-              <label
-                for="file-upload"
-                className="btn btn-outline-warning ml-3 mr-3"
-                style={{ fontSize: "15px" }}
-              >
-                <i class="fa fa-upload"></i>
-              </label>
-            }
-            <img
-              src={sellerInput?.shopLogo?.publicId === null ? demoProduct : sellerInput?.shopLogo?.url}
-              alt="Product Icon"
-              className="preview-img"
-            />
-          </div>
 
-          {isSeller ? (
+          {isUpdate ? (
             <a className="btn btn-success btn-sm mt-3 text-light">
               {" "}
               <span
@@ -126,7 +93,7 @@ const CreateSeller = () => {
               className="btn btn-success btn-sm mt-3 text-light"
               onClick={() => handleSubmit()}
             >
-              SUBMIT
+              UPDATE
             </a>
           )}
         </div>
@@ -136,4 +103,4 @@ const CreateSeller = () => {
   );
 };
 
-export default CreateSeller;
+export default UpdateSeller;

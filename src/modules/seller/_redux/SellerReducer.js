@@ -5,9 +5,9 @@ const initialState = {
     sellerName: "",
     sellerAddress: "",
     shopName: "",
-    deliveryPeriod: 0,
+    deliveryPeriod: "",
     sellerRatings: "",
-    shopLogoUrl: "https://picsum.photos/200/300",
+    shopLogo: { publicId: null, url: "" },
     sellerPhone: "",
     sellerEmail: ""
   },
@@ -15,6 +15,7 @@ const initialState = {
   afterCreated: false,
   afterDeleted: false,
   sellerList: null,
+  isImageLoading: false,
 };
 const SellerReducer = (state = initialState, action) => {
   const newState = { ...state };
@@ -47,6 +48,11 @@ const SellerReducer = (state = initialState, action) => {
       return {
         ...state,
         afterDeleted: action.payload,
+      };
+    case Types.IS_IMG_LOADING:
+      return {
+        ...state,
+        isImageLoading: action.payload,
       };
     default:
       break;

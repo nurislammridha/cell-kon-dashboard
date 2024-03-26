@@ -2,7 +2,7 @@ import React, { useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { confirmAlert } from "react-confirm-alert";
 import "react-confirm-alert/src/react-confirm-alert.css";
-import { AfterDeletedFalse, CategoryDelete, GetCategoryList } from "../_redux/CategoryAction";
+import { AfterDeletedFalse, CategoryDelete, GetCategoryList, RemoveCatImg } from "../_redux/CategoryAction";
 import { useHistory } from "react-router-dom";
 const CategoryList = () => {
   const history = useHistory();
@@ -23,14 +23,14 @@ const CategoryList = () => {
     }
 
   }, [afterDeleted]);
-  const handleDelete = (id) => {
+  const handleDelete = (id, publicId) => {
     confirmAlert({
       title: "Confirm To Delete",
       message: `Are you sure to delete this category?`,
       buttons: [
         {
           label: "Yes",
-          onClick: () => dispatch(CategoryDelete(id)),
+          onClick: () => dispatch(RemoveCatImg(id, publicId)),
         },
         {
           label: "No",
@@ -57,6 +57,7 @@ const CategoryList = () => {
               <tr>
                 <th>SL</th>
                 <th>Category Name</th>
+                <th>Photo</th>
                 <th>Status</th>
                 <th>Action</th>
               </tr>
@@ -66,11 +67,18 @@ const CategoryList = () => {
                 <tr>
                   <td>{index + 1}</td>
                   <td>{item.categoryName}</td>
+                  <it><img src={item?.categoryImg?.url} width={"50px"} /></it>
                   <td>{item.isActive ? "Active" : "Inactive"}</td>
                   <td>
                     <a
+                      className="btn btn-outline-success btn-sm mr-2"
+                      onClick={() => history.push({ pathname: `/category-edit/${item._id}`, state: { category: item } })}
+                    >
+                      <i className="fa fa-pencil"></i>
+                    </a>
+                    <a
                       className="btn btn-danger btn-sm"
-                      onClick={() => handleDelete(item._id)}
+                      onClick={() => handleDelete(item._id, item.categoryImg?.publicId)}
                     >
                       <i className="fa fa-trash"></i>
                     </a>

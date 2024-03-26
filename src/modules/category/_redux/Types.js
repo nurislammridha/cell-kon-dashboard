@@ -1,4 +1,8 @@
 export const IS_CREATE_CATEGORY = "IS_CREATE_CATEGORY";
+export const IS_UPDATE_CATEGORY = "IS_UPDATE_CATEGORY";
 export const CATEGORY_LIST = "CATEGORY_LIST";
 export const AFTER_CREATED = "AFTER_CREATED";
+export const AFTER_UPDATED = "AFTER_UPDATED";
 export const AFTER_DELETED = "AFTER_DELETED";
+export const CAT_IMG = "CAT_IMG";
+export const IS_IMG_LOADING = "IS_IMG_LOADING";

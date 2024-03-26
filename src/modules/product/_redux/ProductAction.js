@@ -111,16 +111,20 @@ export const SubmitProduct = (data) => (dispatch) => {
   } else if (sellerName.length === 0) {
     showToast("error", "Select a seller");
     return 0;
-  } else if (unitName.length === 0) {
-    showToast("error", "You should select unit name");
-    return 0;
-  } else if (brandName.length === 0) {
-    showToast("error", "Select a brand");
-    return 0;
-  } else if (size.length === 0) {
-    showToast("error", "You should select product size");
-    return 0;
-  } else if (shortDescriptions.length === 0) {
+  }
+  // else if (unitName.length === 0) {
+  //   showToast("error", "You should select unit name");
+  //   return 0;
+  // } 
+  // else if (brandName.length === 0) {
+  //   showToast("error", "Select a brand");
+  //   return 0;
+  // }
+  //  else if (size.length === 0) {
+  //   showToast("error", "You should select product size");
+  //   return 0;
+  // } 
+  else if (shortDescriptions.length === 0) {
     showToast("error", "short description should n't be empty");
     return 0;
   } else if (longDescriptionView.length === 0) {

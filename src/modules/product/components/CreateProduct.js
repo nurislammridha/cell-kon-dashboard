@@ -272,7 +272,7 @@ const CreateProduct = () => {
                     <tr>
                       <th>Image</th>
                       <th>Color</th>
-                      <th>View</th>
+                      {/* <th>View</th> */}
                       <th></th>
                     </tr>
                   </thead>
@@ -287,7 +287,9 @@ const CreateProduct = () => {
                           />
                         </td>
                         <td>{item.colorName}</td>
-                        <td><div className="tbl-color" style={{ backgroundColor: item.colorHexCode }}></div></td>
+                        {/* <td> */}
+                        {/* <div className="tbl-color" style={{ backgroundColor: item.colorHexCode }}></div> */}
+                        {/* </td> */}
                         <td> <a
                           className="btn btn-danger btn-sm"
                           onClick={() => handleAdd("remove", item)}

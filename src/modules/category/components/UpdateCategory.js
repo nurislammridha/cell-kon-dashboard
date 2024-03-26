@@ -1,28 +1,35 @@
 import React, { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import { AfterCreatedFalse, SubmitCategory, UploadCatImg } from "../_redux/CategoryAction";
 import demoProduct from '../../../assets/images/demoProduct.jpg'
-const CreateCategory = () => {
+import { AfterUpdatedFalse, CategoryUpdate, SubmitCategory, UploadCatImg } from "../_redux/CategoryAction";
+import { useHistory, useLocation, useParams } from "react-router-dom";
+
+const UpdateCategory = () => {
+  const { id } = useParams()
+  const location = useLocation()
+  const history = useHistory()
   const [category, setCategory] = useState("");
   const [categoryImg, setCategoryImg] = useState({ url: "", publicId: null });
-  const isCategory = useSelector((state) => state.categoryInfo.isCategory);
-  const afterCreated = useSelector((state) => state.categoryInfo.afterCreated);
-  const catImg = useSelector((state) => state.categoryInfo.catImg);
+  const isUpdate = useSelector((state) => state.categoryInfo.isUpdate);
+  const afterUpdated = useSelector((state) => state.categoryInfo.afterUpdated);
   const isImageLoading = useSelector((state) => state.categoryInfo.isImageLoading);
+  const catImg = useSelector((state) => state.categoryInfo.catImg);
+
   const dispatch = useDispatch();
   const handleSubmit = () => {
-    dispatch(SubmitCategory(category, categoryImg));
+    dispatch(CategoryUpdate(category, categoryImg, id));
   };
   const handleChangeImg = (value) => {
     dispatch(UploadCatImg(value, categoryImg));
   };
   useEffect(() => {
-    if (afterCreated) {
-      setCategory("")
-      setCategoryImg({ url: "", publicId: null })
-      dispatch(AfterCreatedFalse())
+    if (afterUpdated) {
+      history.push('/category')
+      dispatch(AfterUpdatedFalse())
     }
-  }, [afterCreated])
+    setCategory(location?.state?.category?.categoryName)
+    setCategoryImg(location?.state?.category?.categoryImg)
+  }, [afterUpdated, id])
   useEffect(() => {
     catImg !== null && setCategoryImg(catImg)
 
@@ -32,6 +39,7 @@ const CreateCategory = () => {
       <div className="row">
         <div className="col-sm-2"></div>
         <div className="col-sm-8">
+          <h3 className="mb-3">Update Category</h3>
           <div>
             <h6 className="mb-3">Category Name</h6>
             <input
@@ -74,7 +82,7 @@ const CreateCategory = () => {
               />
             </div>
           </div>
-          {isCategory ? (
+          {isUpdate ? (
             <a className="btn btn-success btn-sm mt-3 text-light">
               {" "}
               <span
@@ -88,7 +96,7 @@ const CreateCategory = () => {
               className="btn btn-success btn-sm mt-3 text-light"
               onClick={() => handleSubmit()}
             >
-              SUBMIT
+              UPDATE
             </a>
           )}
         </div>
@@ -98,4 +106,4 @@ const CreateCategory = () => {
   );
 };
 
-export default CreateCategory;
+export default UpdateCategory;

@@ -2,7 +2,7 @@ import React, { useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { confirmAlert } from "react-confirm-alert";
 import "react-confirm-alert/src/react-confirm-alert.css";
-import { AfterDeletedFalse, SellerDelete, GetSellerList } from "../_redux/SellerAction";
+import { AfterDeletedFalse, SellerDelete, GetSellerList, RemoveShopImg } from "../_redux/SellerAction";
 import { useHistory } from "react-router-dom";
 const SellerList = () => {
   const history = useHistory();
@@ -23,14 +23,14 @@ const SellerList = () => {
     }
 
   }, [afterDeleted]);
-  const handleDelete = (id) => {
+  const handleDelete = (id, publicId) => {
     confirmAlert({
       title: "Confirm To Delete",
       message: `Are you sure to delete this seller?`,
       buttons: [
         {
           label: "Yes",
-          onClick: () => dispatch(SellerDelete(id)),
+          onClick: () => dispatch(RemoveShopImg(id, publicId)),
         },
         {
           label: "No",
@@ -62,8 +62,9 @@ const SellerList = () => {
                 <th>Period</th>
                 <th>Ratings</th>
                 <th>Phone</th>
-                <th>Email</th>
+                <th>Photo</th>
                 <th>Status</th>
+                <th>Action</th>
               </tr>
             </thead>
             <tbody>
@@ -76,12 +77,12 @@ const SellerList = () => {
                   <td>{item.deliveryPeriod}</td>
                   <td>{item.sellerRatings}</td>
                   <td>{item.sellerPhone}</td>
-                  <td>{item.sellerEmail}</td>
+                  <td><img src={item?.shopLogo?.url} width={30} /></td>
                   <td>{item.isActive ? "Active" : "Inactive"}</td>
                   <td>
                     <a
                       className="btn btn-danger btn-sm"
-                      onClick={() => handleDelete(item._id)}
+                      onClick={() => handleDelete(item._id, item?.shopLogo?.publicId)}
                     >
                       <i className="fa fa-trash"></i>
                     </a>
