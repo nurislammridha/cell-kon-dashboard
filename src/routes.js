@@ -31,6 +31,7 @@ import UpdateSizeContainer from "./modules/size/views/UpdateSizeContainer";
 import UpdateColorContainer from "./modules/color/views/UpdateColorContainer";
 import UpdateCategoryContainer from "./modules/category/views/UpdateCategoryContainer";
 import UpdateSubCategoryContainer from "./modules/subCategory/views/UpdateSubCategoryContainer";
+import UpdateSellerContainer from "./modules/seller/views/UpdateSellerContainer";
 
 const Dashboard = React.lazy(() => import("./views/dashboard/Dashboard"));
 
@@ -91,6 +92,7 @@ const routes = [
   },
   //seller
   { path: "/seller", name: "Seller", component: SellerListContainer },
+  { path: "/seller-edit/:id", name: "Seller Edit", component: UpdateSellerContainer },
   {
     path: "/seller-add",
     name: "Create Seller",

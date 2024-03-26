@@ -22,10 +22,20 @@ const PostImg = (name, img) => (dispatch) => {
   data.append("cloud_name ", "nurislammridha");
   const url = "https://api.cloudinary.com/v1_1/nurislammridha/image/upload"
   console.log('name,url,data', name, url, data)
+  if (name === 'productIcon') {
+    dispatch({ type: Types.ICON_LOADING, payload: true })
+  } else {
+    dispatch({ type: Types.IMG_LOADING, payload: true })
+  }
   Axios.post(url, data).then((res) => {
     console.log('res.data', res.data)
     if (res.data) {
       dispatch({ type: Types.GET_PRODUCT_INPUT, payload: { name, value: { publicId: res?.data?.public_id, url: res?.data?.url } } })
+      if (name === 'productIcon') {
+        dispatch({ type: Types.ICON_LOADING, payload: false })
+      } else {
+        dispatch({ type: Types.IMG_LOADING, payload: false })
+      }
     }
   }
   )
@@ -397,3 +407,22 @@ export const getProductOption = (data) => {
   }
   return arr;
 };
+export const RemoveArImg = (item) => (dispatch) => {
+  const urlRemove = `${process.env.REACT_APP_API_URL}helper/delete-cloudinary`;
+  let arr = item.productImgColor
+  arr.forEach((item22, index) => {
+    Axios.post(urlRemove, { publicId: item22.publicId }).then((res) => {
+      if (res && arr.length === index + 1) {
+        dispatch(ProductDelete(item._id))
+      }
+    })
+  });
+}
+export const RemoveProImg = (item) => (dispatch) => {
+  const urlRemove = `${process.env.REACT_APP_API_URL}helper/delete-cloudinary`;
+  Axios.post(urlRemove, { publicId: item.productIcon.publicId }).then((res) => {
+    if (res) {
+      dispatch(RemoveArImg(item))
+    }
+  })
+}

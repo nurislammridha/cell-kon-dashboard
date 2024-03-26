@@ -81,6 +81,12 @@ const SellerList = () => {
                   <td>{item.isActive ? "Active" : "Inactive"}</td>
                   <td>
                     <a
+                      className="btn btn-outline-success btn-sm mr-2"
+                      onClick={() => history.push({ pathname: `/seller-edit/${item._id}`, state: { data: item } })}
+                    >
+                      <i className="fa fa-pencil"></i>
+                    </a>
+                    <a
                       className="btn btn-danger btn-sm"
                       onClick={() => handleDelete(item._id, item?.shopLogo?.publicId)}
                     >

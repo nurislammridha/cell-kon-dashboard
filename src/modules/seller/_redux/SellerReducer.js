@@ -11,7 +11,19 @@ const initialState = {
     sellerPhone: "",
     sellerEmail: ""
   },
+  updateInput: {
+    sellerName: "",
+    sellerAddress: "",
+    shopName: "",
+    deliveryPeriod: "",
+    sellerRatings: "",
+    shopLogo: { publicId: null, url: "" },
+    sellerPhone: "",
+    sellerEmail: ""
+  },
   isSeller: false,
+  isUpdate: false,
+  isUpdated: false,
   afterCreated: false,
   afterDeleted: false,
   sellerList: null,
@@ -27,6 +39,20 @@ const SellerReducer = (state = initialState, action) => {
         ...state,
         sellerInput: sellerInput,
       };
+    case Types.GET_UPDATE_INPUT:
+      const updateInput2 = { ...state.updateInput };
+      updateInput2[action.payload.name] = action.payload.value;
+      return {
+        ...state,
+        updateInput: updateInput2,
+      };
+    case Types.SET_SELLER_INPUT:
+      let updateInput = { ...state.updateInput };
+      updateInput = action.payload;
+      return {
+        ...state,
+        updateInput: updateInput,
+      };
     case Types.AFTER_CREATE_SELLER:
       const sellerInputAfter = initialState.sellerInput;
       return {
@@ -37,6 +63,16 @@ const SellerReducer = (state = initialState, action) => {
       return {
         ...state,
         isSeller: action.payload,
+      };
+    case Types.IS_UPDATE_SELLER:
+      return {
+        ...state,
+        isUpdate: action.payload,
+      };
+    case Types.IS_UPDATED_SELLER:
+      return {
+        ...state,
+        isUpdated: action.payload,
       };
 
     case Types.SELLER_LIST:

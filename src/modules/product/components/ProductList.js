@@ -7,9 +7,8 @@ import {
   GetProductByCategory,
   GetProductList,
   PreUpdateProduct,
-  ProductDelete,
+  RemoveProImg,
 } from "../_redux/ProductAction";
-import Select from "react-select";
 const ProductList = () => {
   const history = useHistory();
   const [category, setCategory] = useState("");
@@ -18,14 +17,14 @@ const ProductList = () => {
   useEffect(() => {
     // dispatch(GetproductList());
   }, []);
-  const handleDelete = (id) => {
+  const handleDelete = (item) => {
     confirmAlert({
       title: "Confirm To Delete",
       message: `Are you sure to delete this product?`,
       buttons: [
         {
           label: "Yes",
-          onClick: () => dispatch(ProductDelete(id)),
+          onClick: () => dispatch(RemoveProImg(item)),
         },
         {
           label: "No",
@@ -111,7 +110,7 @@ const ProductList = () => {
                     </a> */}
                     <a
                       className="btn btn-danger btn-sm"
-                      onClick={() => handleDelete(item._id)}
+                      onClick={() => handleDelete(item)}
                     >
                       <i className="fa fa-trash"></i>
                     </a>

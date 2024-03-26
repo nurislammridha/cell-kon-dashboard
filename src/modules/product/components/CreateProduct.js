@@ -54,6 +54,8 @@ const CreateProduct = () => {
     (state) => state.productInfo.productList
   );
   const productInput = useSelector((state) => state.productInfo.productInput);
+  const isImgLoading = useSelector((state) => state.productInfo.isImgLoading);
+  const isIconLoading = useSelector((state) => state.productInfo.isIconLoading);
   const isCreateProduct = useSelector(
     (state) => state.productInfo.isCreateProduct
   );
@@ -203,13 +205,18 @@ const CreateProduct = () => {
                 handleChangeImg("productIcon", e.target.files[0])
               }
             />
-            <label
-              for="file-upload"
-              className="btn btn-outline-warning ml-3 mr-3"
-              style={{ fontSize: "15px" }}
-            >
-              <i class="fa fa-upload"></i>
-            </label>
+            {isIconLoading ? <span
+              class="spinner-border spinner-border-sm"
+              role="status"
+              aria-hidden="true"
+            ></span> :
+              <label
+                for="file-upload"
+                className="btn btn-outline-warning ml-3 mr-3"
+                style={{ fontSize: "15px" }}
+              >
+                <i class="fa fa-upload"></i>
+              </label>}
             <img
               src={productInput?.productIcon?.publicId === null ? demoProduct : productInput?.productIcon?.url}
               alt="Product Icon"
@@ -229,13 +236,18 @@ const CreateProduct = () => {
                     handleChangeImg("productImg", e.target.files[0])
                   }
                 />
-                <label
-                  for="file-upload2"
-                  className="btn btn-outline-warning ml-3 mr-3"
-                  style={{ fontSize: "15px" }}
-                >
-                  <i class="fa fa-upload"></i>
-                </label>
+                {isImgLoading ? <span
+                  class="spinner-border spinner-border-sm"
+                  role="status"
+                  aria-hidden="true"
+                ></span> :
+                  <label
+                    for="file-upload2"
+                    className="btn btn-outline-warning ml-3 mr-3"
+                    style={{ fontSize: "15px" }}
+                  >
+                    <i class="fa fa-upload"></i>
+                  </label>}
                 <div>
                   <img
                     src={productInput?.productImg?.publicId === null ? demoProduct : productInput?.productImg?.url}
@@ -254,7 +266,7 @@ const CreateProduct = () => {
                     handleChangeInput("colorHexCode", e.colorHexCode);
                   }}
                 />
-                <div className="color-show mt-2" style={{ backgroundColor: productInput.colorHexCode }}></div>
+                {/* <div className="color-show mt-2" style={{ backgroundColor: productInput.colorHexCode }}></div> */}
               </div>
             </div>
             <div>

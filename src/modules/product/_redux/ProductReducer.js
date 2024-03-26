@@ -37,6 +37,8 @@ const initialState = {
   },
   isCreateProduct: false,
   afterUpdate: false,
+  isIconLoading: false,
+  isImgLoading: false,
 };
 const ProductReducer = (state = initialState, action) => {
   const newState = { ...state };
@@ -69,6 +71,16 @@ const ProductReducer = (state = initialState, action) => {
       return {
         ...state,
         afterUpdate: action.payload,
+      };
+    case Types.ICON_LOADING:
+      return {
+        ...state,
+        isIconLoading: action.payload,
+      };
+    case Types.IMG_LOADING:
+      return {
+        ...state,
+        isImgLoading: action.payload,
       };
     case Types.PRE_UPDATE_PRODUCT:
       console.log("action.payload", action.payload);
