@@ -1,5 +1,6 @@
 import * as Types from "./Types";
-
+import htmlToDraft from "html-to-draftjs";
+import { EditorState, ContentState } from "draft-js";
 const initialState = {
   productList: null,
   productInput: {
@@ -25,7 +26,7 @@ const initialState = {
     sellerInfo: "",//seller id
     availableQuantity: 0,
     isCampaign: false,
-    isTrendings: false,
+    isTrending: false,
     shortDescriptions: "",
     longDescriptions: "",
     longDescriptionView: "",
@@ -84,39 +85,14 @@ const ProductReducer = (state = initialState, action) => {
       };
     case Types.PRE_UPDATE_PRODUCT:
       console.log("action.payload", action.payload);
-      const {
-        _id,
-        productName,
-        productNameBn,
-        categoryId,
-        categoryName,
-        categoryNameBn,
-        productMRP,
-        productMRPBn,
-        discountPrice,
-        discountPriceBn,
-        productCode,
-        priority,
-        productImage,
-        isActive,
-      } = action.payload;
+      // const {} = action.payload;
       let productEdit = initialState.productInput;
-      productEdit.productName = productName;
-      productEdit.productNameBn = productNameBn;
-      productEdit.categoryId = categoryId;
-      productEdit.categoryName = categoryName;
-      productEdit.categoryNameBn = categoryNameBn;
-      productEdit.productMRP = productMRP;
-      productEdit.productMRPBn = productMRPBn;
-      productEdit.discountPrice = discountPrice;
-      productEdit.discountPriceBn = discountPriceBn;
-      productEdit.productCode = productCode;
-      productEdit.priority = priority;
-      productEdit.imagePreviewUrl =
-        process.env.REACT_APP_IMG_URL + productImage.substring(2);
-      productEdit.id = _id;
-      productEdit.isActive = isActive;
-
+      productEdit = action.payload
+      productEdit.longDescriptionView = MyhtmlToDraft(
+        action.payload.longDescriptions
+      );
+      productEdit.productImg = { url: "", publicId: null }
+      delete productEdit._id
       return {
         ...state,
         productInput: productEdit,
@@ -127,3 +103,14 @@ const ProductReducer = (state = initialState, action) => {
   return newState;
 };
 export default ProductReducer;
+
+export const MyhtmlToDraft = (data) => {
+  const blocksFromHtml = htmlToDraft(data);
+  const { contentBlocks, entityMap } = blocksFromHtml;
+  const contentState = ContentState.createFromBlockArray(
+    contentBlocks,
+    entityMap
+  );
+  const editorState = EditorState.createWithContent(contentState);
+  return editorState;
+};

@@ -3,7 +3,6 @@ import CreateCategoryContainer from "./modules/category/views/CreateCategoryCont
 import OrderDeliveredContainer from "./modules/order/views/OrderDeliveredContainer";
 import OrderProcessingContainer from "./modules/order/views/OrderProcessingContainer";
 import CreateProductContainer from "./modules/product/views/CreateProductContainer";
-import EditProductContainer from "./modules/product/views/EditProductContainer";
 import ProductListContainer from "./modules/product/views/ProductListContainer";
 import UserListContainer from "./modules/user/views/UserListContainer";
 import CreateBrandContainer from "./modules/brand/views/CreateBrandContainer";
@@ -32,6 +31,7 @@ import UpdateColorContainer from "./modules/color/views/UpdateColorContainer";
 import UpdateCategoryContainer from "./modules/category/views/UpdateCategoryContainer";
 import UpdateSubCategoryContainer from "./modules/subCategory/views/UpdateSubCategoryContainer";
 import UpdateSellerContainer from "./modules/seller/views/UpdateSellerContainer";
+import UpdateProductContainer from "./modules/product/views/UpdateProductContainer";
 
 const Dashboard = React.lazy(() => import("./views/dashboard/Dashboard"));
 
@@ -110,9 +110,9 @@ const routes = [
     component: CreateProductContainer,
   },
   {
-    path: "/product-update",
+    path: "/product-edit/:id",
     name: "Create Product",
-    component: EditProductContainer,
+    component: UpdateProductContainer,
   },
   {
     path: "/user",

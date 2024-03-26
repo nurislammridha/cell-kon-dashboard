@@ -170,58 +170,76 @@ export const SubmitProduct = (data) => (dispatch) => {
     showToast("error", "Something went wrong");
   }
 };
-export const UpdateProduct = (data) => (dispatch) => {
-  if (data.productName.length === 0) {
+export const ProductUpdate = (data, id) => (dispatch) => {
+  const { productName, rp, mrp, regularDiscount, campaignDiscount, unitName,
+    categoryName, size,
+    subCategoryName, brandName,
+    sellerName, availableQuantity,
+    shortDescriptions,
+    productIcon, productImgColor, longDescriptionView
+  } = data
+  if (productName.length === 0) {
     showToast("error", "Product name shouldn't be empty");
     return 0;
-  } else if (data.productNameBn.length === 0) {
-    showToast("error", "Product name bangla shouldn't be empty");
+  } else if (rp <= 0) {
+    showToast("error", "Rp should be greater than zero");
     return 0;
-  } else if (data.categoryName.length === 0) {
-    showToast("error", "Please Select a category");
+  } else if (mrp <= 0) {
+    showToast("error", "Mrp should be greater than zero");
     return 0;
-  } else if (data.productMRP.length === 0) {
-    showToast("error", "Product MRP shouldn't be empty");
+  } else if (regularDiscount <= 0) {
+    showToast("error", "Regular discount should be greater than zero");
     return 0;
-  } else if (data.productMRPBn.length === 0) {
-    showToast("error", "Product MRP bangla shouldn't be empty");
+  } else if (campaignDiscount <= 0) {
+    showToast("error", "Campaign should be greater than zero");
     return 0;
-  } else if (data.discountPrice.length === 0) {
-    showToast("error", "Discount price shouldn't be empty");
+  } else if (availableQuantity <= 0) {
+    showToast("error", "Quantity should be greater than zero");
     return 0;
-  } else if (data.discountPriceBn.length === 0) {
-    showToast("error", "Discount price bangla shouldn't be empty");
+  } else if (productIcon.public_d <= 0) {
+    showToast("error", "Select product icon");
     return 0;
-  } else if (data.productCode.length === 0) {
-    showToast("error", "Product code shouldn't be empty");
+  } else if (productImgColor.length === 0) {
+    showToast("error", "Select products image with releted color");
+    return 0;
+  } else if (categoryName.length === 0) {
+    showToast("error", "select a category");
+    return 0;
+  } else if (subCategoryName.length === 0) {
+    showToast("error", "select a subcategory category");
+    return 0;
+  } else if (sellerName.length === 0) {
+    showToast("error", "Select a seller");
     return 0;
   }
-  // else if (data.productImage.length === 0) {
-  //   showToast("error", "Please select a product image");
+  // else if (unitName.length === 0) {
+  //   showToast("error", "You should select unit name");
+  //   return 0;
+  // } 
+  // else if (brandName.length === 0) {
+  //   showToast("error", "Select a brand");
   //   return 0;
   // }
-  const url = `${process.env.REACT_APP_API_URL}product/${data.id}`;
-  dispatch({ type: Types.IS_CREATE_PRODUCT, payload: true });
-  const formData = new FormData();
-  formData.append("product_name", data.productName);
-  formData.append("product_name_bn", data.productNameBn);
-  formData.append("category_id", data.categoryId);
-  formData.append("category_name", data.categoryName);
-  formData.append("category_name_bn", data.categoryNameBn);
-  formData.append("product_mrp", data.productMRP);
-  formData.append("product_mrp_bn", data.productMRPBn);
-  formData.append("is_discount", true);
-  formData.append("discount_price", data.discountPrice);
-  formData.append("discount_price_bn", data.discountPriceBn);
-  formData.append("is_active", data.isActive);
-  formData.append("priority", data.priority);
-  if (data.productImage.length === undefined) {
-    formData.append("product_image", data.productImage);
+  //  else if (size.length === 0) {
+  //   showToast("error", "You should select product size");
+  //   return 0;
+  // } 
+  else if (shortDescriptions.length === 0) {
+    showToast("error", "short description should n't be empty");
+    return 0;
+  } else if (longDescriptionView.length === 0) {
+    showToast("error", "Long description should n't be empty");
+    return 0;
   }
-  formData.append("product_code", data.productCode);
-
+  const proxy = longDescriptionView
+  data.longDescriptions = draftToHtml(
+    convertToRaw(proxy.getCurrentContent())
+  );
+  const url = `${process.env.REACT_APP_API_URL}product/${id}`;
+  dispatch({ type: Types.IS_CREATE_PRODUCT, payload: true });
+  // console.log('data', data)
   try {
-    Axios.put(url, formData)
+    Axios.put(url, data)
       .then((res) => {
         if (res.data.status) {
           showToast("success", res.data.message);
@@ -243,6 +261,7 @@ export const UpdateProduct = (data) => (dispatch) => {
     showToast("error", "Something went wrong");
   }
 };
+
 export const FalseUpdate = () => (dispatch) => {
   dispatch({ type: Types.AFTER_UPDATE_PRODUCT, payload: false });
 };

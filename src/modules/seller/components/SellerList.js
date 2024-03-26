@@ -86,12 +86,12 @@ const SellerList = () => {
                     >
                       <i className="fa fa-pencil"></i>
                     </a>
-                    <a
+                    {item._id !== "6602d7dfdf403e1264fffccc" && <a
                       className="btn btn-danger btn-sm"
                       onClick={() => handleDelete(item._id, item?.shopLogo?.publicId)}
                     >
                       <i className="fa fa-trash"></i>
-                    </a>
+                    </a>}
                   </td>
                 </tr>
               ))}

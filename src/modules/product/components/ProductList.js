@@ -32,9 +32,9 @@ const ProductList = () => {
       ],
     });
   };
-  const handleEdit = (data) => {
+  const handleEdit = (data, id) => {
     dispatch(PreUpdateProduct(data));
-    history.push("/product-update");
+    history.push(`/product-edit/${id}`);
   };
   useEffect(() => {
     if (category && category.label.length > 0) {
@@ -102,12 +102,12 @@ const ProductList = () => {
                     />
                   </td>
                   <td>
-                    {/* <a
+                    <a
                       className="btn btn-outline-success btn-sm mr-2"
-                      onClick={() => handleEdit(item)}
+                      onClick={() => handleEdit(item, item._id)}
                     >
                       <i className="fa fa-pencil"></i>
-                    </a> */}
+                    </a>
                     <a
                       className="btn btn-danger btn-sm"
                       onClick={() => handleDelete(item)}

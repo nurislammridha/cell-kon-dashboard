@@ -451,7 +451,7 @@ const CreateProduct = () => {
                 label="Yes"
                 name="isTrendings"
                 type="radio"
-                checked={productInput.isTrendings === true}
+                checked={productInput.isTrending === true}
                 onChange={(e) => handleChangeInput("isTrendings", true)}
               />
               <Form.Check
@@ -459,7 +459,7 @@ const CreateProduct = () => {
                 label="No"
                 name="isTrendings"
                 type="radio"
-                checked={productInput.isTrendings === false}
+                checked={productInput.isTrending === false}
                 onChange={(e) => handleChangeInput("isTrendings", false)}
               />
             </div>
