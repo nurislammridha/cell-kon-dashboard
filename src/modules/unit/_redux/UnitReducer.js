@@ -2,7 +2,9 @@ import * as Types from "./Types";
 
 const initialState = {
   isUnit: false,
+  isUpdate: false,
   afterCreated: false,
+  afterUpdated: false,
   afterDeleted: false,
   unitList: null,
 };
@@ -14,10 +16,20 @@ const UnitReducer = (state = initialState, action) => {
         ...state,
         isUnit: action.payload,
       };
+    case Types.IS_UPDATE_UNIT:
+      return {
+        ...state,
+        isUpdate: action.payload,
+      };
     case Types.AFTER_CREATED:
       return {
         ...state,
         afterCreated: action.payload,
+      };
+    case Types.AFTER_UPDATED:
+      return {
+        ...state,
+        afterUpdated: action.payload,
       };
     case Types.UNIT_LIST:
       return {

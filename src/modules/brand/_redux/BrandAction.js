@@ -34,6 +34,42 @@ export const SubmitBrand = (brand) => (dispatch) => {
     showToast("error", "Something went wrong");
   }
 };
+//Update brand
+export const UpdateBrandData = (brand, id) => (dispatch) => {
+  if (brand.length === 0) {
+    showToast("error", "Brand shouldn't be empty");
+    return 0;
+  }
+  const url = `${process.env.REACT_APP_API_URL}brand/${id}`;
+  dispatch({ type: Types.IS_UPDATE_BRAND, payload: true });
+  const postData = {
+    brandName: brand
+  };
+  try {
+    Axios.put(url, postData)
+      .then((res) => {
+        if (res.data.status) {
+          showToast("success", res.data.message);
+          dispatch({ type: Types.IS_UPDATE_BRAND, payload: false });
+          dispatch({ type: Types.AFTER_UPDATED, payload: true });
+        } else {
+          showToast("error", res.data.message);
+          dispatch({ type: Types.IS_UPDATE_BRAND, payload: false });
+        }
+      })
+      .catch((err) => {
+        dispatch({ type: Types.IS_UPDATE_BRAND, payload: false });
+        const message = JSON.parse(err.request.response).message;
+        showToast("error", message);
+      });
+  } catch (error) {
+    dispatch({ type: Types.IS_UPDATE_BRAND, payload: false });
+    showToast("error", "Something went wrong");
+  }
+};
+export const AfterUpdatedFalse = () => (dispatch) => {
+  dispatch({ type: Types.AFTER_UPDATED, payload: false })
+}
 export const AfterCreatedFalse = () => (dispatch) => {
   dispatch({ type: Types.AFTER_CREATED, payload: false })
 }

@@ -25,6 +25,10 @@ import OrderPickedContainer from "./modules/order/views/OrderPickedContainer";
 import OrderShippedContainer from "./modules/order/views/OrderShippedContainer";
 import OrderDetailsContainer from "./modules/order/views/OrderDetailsContainer";
 import DeliveredOrderContainer from "./modules/order/views/DeliveredOrderContainer";
+import UpdateBrandContainer from "./modules/brand/views/UpdateBrandContainer";
+import UpdateUnitContainer from "./modules/unit/views/UpdateUnitContainer";
+import UpdateSizeContainer from "./modules/size/views/UpdateSizeContainer";
+import UpdateColorContainer from "./modules/color/views/UpdateColorContainer";
 
 const Dashboard = React.lazy(() => import("./views/dashboard/Dashboard"));
 
@@ -38,8 +42,14 @@ const routes = [
     name: "Create Brand",
     component: CreateBrandContainer,
   },
+  {
+    path: "/brand-edit/:id",
+    name: "Update Brand",
+    component: UpdateBrandContainer,
+  },
   //unit
   { path: "/unit", name: "Unit", component: UnitListContainer },
+  { path: "/unit-edit/:id", name: "Unit", component: UpdateUnitContainer },
   {
     path: "/unit-add",
     name: "Create Unit",
@@ -47,6 +57,7 @@ const routes = [
   },
   //size
   { path: "/size", name: "Size", component: SizeListContainer },
+  { path: "/size-edit/:id", name: "Size", component: UpdateSizeContainer },
   {
     path: "/size-add",
     name: "Create Size",
@@ -54,6 +65,7 @@ const routes = [
   },
   //color
   { path: "/color", name: "Color", component: ColorListContainer },
+  { path: "/color-edit/:id", name: "Color", component: UpdateColorContainer },
   {
     path: "/color-add",
     name: "Create Color",

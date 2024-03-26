@@ -57,7 +57,7 @@ const ColorList = () => {
               <tr>
                 <th>SL</th>
                 <th>Color Name</th>
-                <th>Color Code</th>
+                {/* <th>Color Code</th> */}
                 <th>Status</th>
                 <th>Action</th>
               </tr>
@@ -67,9 +67,15 @@ const ColorList = () => {
                 <tr>
                   <td>{index + 1}</td>
                   <td>{item.colorName}</td>
-                  <td>{item.colorHexCode}</td>
+                  {/* <td>{item.colorHexCode}</td> */}
                   <td>{item.isActive ? "Active" : "Inactive"}</td>
                   <td>
+                    <a
+                      className="btn btn-outline-success btn-sm mr-2"
+                      onClick={() => history.push({ pathname: `/color-edit/${item._id}`, state: { color: item.colorName } })}
+                    >
+                      <i className="fa fa-pencil"></i>
+                    </a>
                     <a
                       className="btn btn-danger btn-sm"
                       onClick={() => handleDelete(item._id)}

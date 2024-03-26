@@ -37,6 +37,42 @@ export const SubmitUnit = (unit) => (dispatch) => {
 export const AfterCreatedFalse = () => (dispatch) => {
   dispatch({ type: Types.AFTER_CREATED, payload: false })
 }
+//Submit 
+export const UnitUpdate = (unit, id) => (dispatch) => {
+  if (unit.length === 0) {
+    showToast("error", "Unit shouldn't be empty");
+    return 0;
+  }
+  const url = `${process.env.REACT_APP_API_URL}unit/${id}`;
+  dispatch({ type: Types.IS_UPDATE_UNIT, payload: true });
+  const postData = {
+    unitName: unit
+  };
+  try {
+    Axios.put(url, postData)
+      .then((res) => {
+        if (res.data.status) {
+          showToast("success", res.data.message);
+          dispatch({ type: Types.IS_UPDATE_UNIT, payload: false });
+          dispatch({ type: Types.AFTER_UPDATED, payload: true });
+        } else {
+          showToast("error", res.data.message);
+          dispatch({ type: Types.IS_UPDATE_UNIT, payload: false });
+        }
+      })
+      .catch((err) => {
+        dispatch({ type: Types.IS_UPDATE_UNIT, payload: false });
+        const message = JSON.parse(err.request.response).message;
+        showToast("error", message);
+      });
+  } catch (error) {
+    dispatch({ type: Types.IS_UPDATE_UNIT, payload: false });
+    showToast("error", "Something went wrong");
+  }
+};
+export const AfterUpdatedFalse = () => (dispatch) => {
+  dispatch({ type: Types.AFTER_UPDATED, payload: false })
+}
 export const GetUnitList = () => (dispatch) => {
   const url = `${process.env.REACT_APP_API_URL}unit`;
   try {

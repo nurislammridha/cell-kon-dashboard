@@ -2,7 +2,9 @@ import * as Types from "./Types";
 
 const initialState = {
   isColor: false,
+  isUpdate: false,
   afterCreated: false,
+  afterUpdated: false,
   afterDeleted: false,
   colorList: null,
 };
@@ -14,10 +16,20 @@ const ColorReducer = (state = initialState, action) => {
         ...state,
         isColor: action.payload,
       };
+    case Types.IS_UPDATE_COLOR:
+      return {
+        ...state,
+        isUpdate: action.payload,
+      };
     case Types.AFTER_CREATED:
       return {
         ...state,
         afterCreated: action.payload,
+      };
+    case Types.AFTER_UPDATED:
+      return {
+        ...state,
+        afterUpdated: action.payload,
       };
     case Types.COLOR_LIST:
       return {
