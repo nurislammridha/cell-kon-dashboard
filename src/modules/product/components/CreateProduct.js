@@ -452,7 +452,7 @@ const CreateProduct = () => {
                 name="isTrendings"
                 type="radio"
                 checked={productInput.isTrending === true}
-                onChange={(e) => handleChangeInput("isTrendings", true)}
+                onChange={(e) => handleChangeInput("isTrending", true)}
               />
               <Form.Check
                 inline
@@ -460,7 +460,7 @@ const CreateProduct = () => {
                 name="isTrendings"
                 type="radio"
                 checked={productInput.isTrending === false}
-                onChange={(e) => handleChangeInput("isTrendings", false)}
+                onChange={(e) => handleChangeInput("isTrending", false)}
               />
             </div>
           </div>

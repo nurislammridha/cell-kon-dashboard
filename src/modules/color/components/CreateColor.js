@@ -33,7 +33,7 @@ const CreateColor = () => {
               onChange={(e) => setColorName(e.target.value)}
             />
           </div>
-          <div className="mt-3">
+          {/* <div className="mt-3">
             <h6 className="mb-3">Color Hexa Code</h6>
             <input
               className="form-control"
@@ -41,7 +41,7 @@ const CreateColor = () => {
               placeholder="enter color hex code"
               onChange={(e) => setColorHexCode(e.target.value)}
             />
-          </div>
+          </div> */}
 
           {isColor ? (
             <a className="btn btn-success btn-sm mt-3 text-light">

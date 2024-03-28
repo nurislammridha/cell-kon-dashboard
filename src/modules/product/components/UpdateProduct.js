@@ -4,6 +4,7 @@ import Select from "react-select";
 import { Form, FormControl } from "react-bootstrap";
 import { GetCategoryList } from "src/modules/category/_redux/CategoryAction";
 import {
+  FalseUpdate,
   getBrandOption,
   getCategoryOption,
   getColorOption,
@@ -100,7 +101,7 @@ const UpdateProduct = () => {
       handleChangeInput("colorName", "")
       handleChangeInput("colorHexCode", "")
     } else if (action === "remove") {
-      const newArr = oldArr.filter((val) => val.colorHexCode !== data.colorHexCode)
+      const newArr = oldArr.filter((val) => val.colorId !== data.colorId)
       dispatch(removeImg("productImgColor", newArr, data.publicId));
       // dispatch(GetProductInput("productImgColor", newArr));
     }
@@ -128,6 +129,7 @@ const UpdateProduct = () => {
   useEffect(() => {
     if (afterUpdate) {
       history.push('/product')
+      dispatch(FalseUpdate())
     }
   }, [afterUpdate])
 

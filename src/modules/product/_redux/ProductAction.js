@@ -100,8 +100,8 @@ export const SubmitProduct = (data) => (dispatch) => {
   } else if (regularDiscount <= 0) {
     showToast("error", "Regular discount should be greater than zero");
     return 0;
-  } else if (campaignDiscount <= 0) {
-    showToast("error", "Campaign should be greater than zero");
+  } else if (campaignDiscount < 0) {
+    showToast("error", "Campaign shouldn't negative");
     return 0;
   } else if (availableQuantity <= 0) {
     showToast("error", "Quantity should be greater than zero");
@@ -148,6 +148,7 @@ export const SubmitProduct = (data) => (dispatch) => {
   const url = `${process.env.REACT_APP_API_URL}product`;
   dispatch({ type: Types.IS_CREATE_PRODUCT, payload: true });
   // console.log('data', data)
+  delete data.longDescriptionView
   try {
     Axios.post(url, data)
       .then((res) => {
@@ -190,8 +191,8 @@ export const ProductUpdate = (data, id) => (dispatch) => {
   } else if (regularDiscount <= 0) {
     showToast("error", "Regular discount should be greater than zero");
     return 0;
-  } else if (campaignDiscount <= 0) {
-    showToast("error", "Campaign should be greater than zero");
+  } else if (campaignDiscount < 0) {
+    showToast("error", "Campaign shouldn't be negative");
     return 0;
   } else if (availableQuantity <= 0) {
     showToast("error", "Quantity should be greater than zero");
@@ -200,7 +201,7 @@ export const ProductUpdate = (data, id) => (dispatch) => {
     showToast("error", "Select product icon");
     return 0;
   } else if (productImgColor.length === 0) {
-    showToast("error", "Select products image with releted color");
+    showToast("error", "Select products image with related color");
     return 0;
   } else if (categoryName.length === 0) {
     showToast("error", "select a category");
@@ -238,6 +239,8 @@ export const ProductUpdate = (data, id) => (dispatch) => {
   const url = `${process.env.REACT_APP_API_URL}product/${id}`;
   dispatch({ type: Types.IS_CREATE_PRODUCT, payload: true });
   // console.log('data', data)
+  delete data.longDescriptionView
+
   try {
     Axios.put(url, data)
       .then((res) => {
