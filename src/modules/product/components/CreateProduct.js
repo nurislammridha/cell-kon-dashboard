@@ -4,6 +4,7 @@ import Select from "react-select";
 import { Form, FormControl } from "react-bootstrap";
 import { GetCategoryList } from "src/modules/category/_redux/CategoryAction";
 import {
+  EmptyHistory,
   getBrandOption,
   getCategoryOption,
   getColorOption,
@@ -108,7 +109,7 @@ const CreateProduct = () => {
     dispatch(GetColorList());
     dispatch(GetUnitList());
 
-    // dispatch(GetProductList());
+    dispatch(EmptyHistory());
   }, []);
   useEffect(() => {
     if (productInput.categoryName.length > 0) {

@@ -85,12 +85,13 @@ const ProductReducer = (state = initialState, action) => {
       };
     case Types.PRE_UPDATE_PRODUCT:
       console.log("action.payload", action.payload);
-      // const {} = action.payload;
+      const { longDescriptions } = action.payload || {};
       let productEdit = initialState.productInput;
       productEdit = action.payload
-      productEdit.longDescriptionView = MyhtmlToDraft(
-        action.payload.longDescriptions
-      );
+      if (longDescriptions !== null && longDescriptions?.length > 0) {
+        productEdit.longDescriptionView = MyhtmlToDraft(longDescriptions);
+      }
+
       productEdit.productImg = { url: "", publicId: null }
       delete productEdit._id
       return {
@@ -103,6 +104,7 @@ const ProductReducer = (state = initialState, action) => {
   return newState;
 };
 export default ProductReducer;
+
 
 export const MyhtmlToDraft = (data) => {
   const blocksFromHtml = htmlToDraft(data);

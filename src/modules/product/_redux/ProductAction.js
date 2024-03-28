@@ -148,6 +148,7 @@ export const SubmitProduct = (data) => (dispatch) => {
   const url = `${process.env.REACT_APP_API_URL}product`;
   dispatch({ type: Types.IS_CREATE_PRODUCT, payload: true });
   // console.log('data', data)
+  data.longDescriptions = "<p>" + data.longDescriptions + "</p>"
   delete data.longDescriptionView
   try {
     Axios.post(url, data)
@@ -171,6 +172,9 @@ export const SubmitProduct = (data) => (dispatch) => {
     showToast("error", "Something went wrong");
   }
 };
+export const EmptyHistory = () => (dispatch) => {
+  dispatch({ type: Types.AFTER_CREATE_PRODUCT, payload: true });
+}
 export const ProductUpdate = (data, id) => (dispatch) => {
   const { productName, rp, mrp, regularDiscount, campaignDiscount, unitName,
     categoryName, size,
@@ -239,6 +243,7 @@ export const ProductUpdate = (data, id) => (dispatch) => {
   const url = `${process.env.REACT_APP_API_URL}product/${id}`;
   dispatch({ type: Types.IS_CREATE_PRODUCT, payload: true });
   // console.log('data', data)
+  data.longDescriptions = "<p>" + data.longDescriptions + "</p>"
   delete data.longDescriptionView
 
   try {

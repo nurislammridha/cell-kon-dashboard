@@ -65,7 +65,7 @@ const UpdateProduct = () => {
   const isCreateProduct = useSelector(
     (state) => state.productInfo.isCreateProduct
   );
-
+  const [isShow, setShow] = useState(true)
   const handleSubmit = () => {
     dispatch(ProductUpdate(productInput, id));
   };
@@ -132,7 +132,10 @@ const UpdateProduct = () => {
       dispatch(FalseUpdate())
     }
   }, [afterUpdate])
-
+  // useEffect(() => {
+  //   const timer = setTimeout(() => setShow(true), 3000);
+  //   return () => clearTimeout(timer);
+  // }, []);
   console.log("productInput", productInput);
   return (
     <>
@@ -495,7 +498,7 @@ const UpdateProduct = () => {
       <div className="mt-5">
         <h4 className="text-center">Full Description</h4>
         <div className="mt-4">
-          <Editor
+          {isShow && (<Editor
             wrapperClassName="wrapper"
             editorClassName="editor"
             toolbarClassName="toolbar"
@@ -504,7 +507,7 @@ const UpdateProduct = () => {
             onEditorStateChange={(e) =>
               handleChangeInput("longDescriptionView", e)
             }
-          />
+          />)}
         </div>
       </div>
       <div className="mt-2 d-flex justify-content-end">
