@@ -82,10 +82,11 @@ const UpdateProduct = () => {
       if (productInput.productImg.publicId === null) {
         showToast("error", "select img")
         return 0
-      } else if (productInput.colorName.length === 0) {
-        showToast("error", "select color name")
-        return 0
       }
+      // else if (productInput.colorName.length === 0) {
+      //   showToast("error", "select color name")
+      //   return 0
+      // }
       const obj = {
         url: productInput.productImg.url,
         publicId: productInput.productImg.publicId,
@@ -509,6 +510,16 @@ const UpdateProduct = () => {
             }
           />)}
         </div>
+      </div>
+      <div className="mt-5">
+        <h6>Video Url</h6>
+        <input
+          className="form-control"
+          type="text"
+          placeholder="ex: url,url,url.."
+          value={productInput.videoUrl}
+          onChange={(e) => handleChangeInput("videoUrl", e.target.value)}
+        />
       </div>
       <div className="mt-2 d-flex justify-content-end">
         {isCreateProduct ? (

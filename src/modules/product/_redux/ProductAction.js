@@ -149,6 +149,7 @@ export const SubmitProduct = (data) => (dispatch) => {
   dispatch({ type: Types.IS_CREATE_PRODUCT, payload: true });
   // console.log('data', data)
   data.longDescriptions = "<p>" + data.longDescriptions + "</p>"
+  if (data.videoUrl.length > 0) { data.videoUrl = data.videoUrl.split(",") }
   delete data.longDescriptionView
   try {
     Axios.post(url, data)
@@ -244,6 +245,7 @@ export const ProductUpdate = (data, id) => (dispatch) => {
   dispatch({ type: Types.IS_CREATE_PRODUCT, payload: true });
   // console.log('data', data)
   data.longDescriptions = "<p>" + data.longDescriptions + "</p>"
+  if (data.videoUrl.length > 0) { data.videoUrl = data.videoUrl.split(",") }
   delete data.longDescriptionView
 
   try {

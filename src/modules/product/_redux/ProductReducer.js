@@ -35,6 +35,7 @@ const initialState = {
     productIcon: { url: "", publicId: null },
     relatedProducts: [],
     isAvailableCashOnDelivery: false,
+    videoUrl: "",
   },
   isCreateProduct: false,
   afterUpdate: false,
@@ -91,7 +92,7 @@ const ProductReducer = (state = initialState, action) => {
       if (longDescriptions !== null && longDescriptions?.length > 0) {
         productEdit.longDescriptionView = MyhtmlToDraft(longDescriptions);
       }
-
+      productEdit.videoUrl = arrToStri(productEdit.videoUrl)
       productEdit.productImg = { url: "", publicId: null }
       delete productEdit._id
       return {
@@ -116,3 +117,17 @@ export const MyhtmlToDraft = (data) => {
   const editorState = EditorState.createWithContent(contentState);
   return editorState;
 };
+const arrToStri = (arr) => {
+  let str = ""
+  if (arr.length > 0) {
+    arr.forEach((item, index) => {
+      if (index === 0) {
+        str = item
+      } else {
+        str = str + "," + item
+      }
+
+    });
+  }
+  return str
+}
