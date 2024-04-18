@@ -23,13 +23,13 @@ import { useHistory } from "react-router";
 const WidgetsBrand = lazy(() => import("../widgets/WidgetsBrand.js"));
 
 const Dashboard = () => {
-  // const history = useHistory();
-  // useEffect(() => {
-  //   const isLogin = localStorage.getItem("isLogin") || "false";
-  //   if (isLogin === false || isLogin === "false") {
-  //     history.push("/login");
-  //   }
-  // }, []);
+  const history = useHistory();
+  useEffect(() => {
+    const isLogin = localStorage.getItem("isLogin") || "false";
+    if (isLogin === false || isLogin === "false") {
+      history.push("/login");
+    }
+  }, []);
 
   return (
     <>

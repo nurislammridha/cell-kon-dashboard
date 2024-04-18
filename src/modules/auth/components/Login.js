@@ -13,7 +13,7 @@ import {
   CRow,
 } from "@coreui/react";
 import CIcon from "@coreui/icons-react";
-import logo from "../../../assets/images/logo.jfif";
+import logo from "../../../assets/images/logo345.png";
 import { useDispatch, useSelector } from "react-redux";
 import { SetFalseLogin, SubmitLogin } from "../_redux/AuthAction";
 import { useHistory } from "react-router";
@@ -113,7 +113,7 @@ const Login = () => {
                 style={{ width: "44%" }}
               >
                 <div>
-                  <img src={logo} className="img-fluid" />
+                  {/* <img src={logo} className="img-fluid" /> */}
                 </div>
               </CCard>
             </CCardGroup>
