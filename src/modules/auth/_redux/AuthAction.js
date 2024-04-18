@@ -20,11 +20,17 @@ export const SubmitLogin = (data) => (dispatch) => {
       .then((res) => {
         console.log(`res`, res);
         if (res.data.status) {
-          showToast("success", res.data.message);
-          localStorage.setItem("access_token", res.data.token);
-          localStorage.setItem("isLogin", "true");
-          dispatch({ type: Types.IS_LOGIN, payload: false });
-          dispatch({ type: Types.LOGIN_SUCCESS, payload: true });
+          if (res.data.isLogin) {
+            showToast("success", res.data.message);
+            localStorage.setItem("access_token", res.data.token);
+            localStorage.setItem("isLogin", "true");
+            dispatch({ type: Types.IS_LOGIN, payload: false });
+            dispatch({ type: Types.LOGIN_SUCCESS, payload: true });
+          } else {
+            showToast("error", res.data.message);
+            dispatch({ type: Types.IS_LOGIN, payload: false });
+          }
+
         } else {
           showToast("error", res.data.message);
           dispatch({ type: Types.IS_LOGIN, payload: false });
