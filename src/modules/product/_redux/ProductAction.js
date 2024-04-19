@@ -27,6 +27,19 @@ const PostImg = (name, img) => (dispatch) => {
   } else {
     dispatch({ type: Types.IMG_LOADING, payload: true })
   }
+  // const myInterceptor = Axios.interceptors.request.use(function () {/*...*/ });
+  // Axios.interceptors.request.eject(myInterceptor);
+  // console.log('hello', "hello")
+  // Axios.interceptors.request.use(
+  //   (config) => {
+  //     config.headers["Authorization"] = "hjhjgj"
+  //     config.headers["Accept"] = "application/json";
+  //     return config;
+  //   },
+  //   (error) => {
+  //     Promise.reject(error);
+  //   }
+  // );
   Axios.post(url, data).then((res) => {
     console.log('res.data', res.data)
     if (res.data) {
