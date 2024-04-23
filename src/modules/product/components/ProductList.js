@@ -12,11 +12,12 @@ import {
 const ProductList = () => {
   const history = useHistory();
   const [category, setCategory] = useState("");
-  const productArrList = useSelector((state) => state.productInfo.productList);
+  const [search, setSearch] = useState("");
+  const productInfo = useSelector((state) => state.productInfo.productList);
+  const { pagination } = productInfo || {}
+  const { currentPage, nextPage, previousPage, totalPage } = pagination || {}
   const dispatch = useDispatch();
-  useEffect(() => {
-    // dispatch(GetproductList());
-  }, []);
+
   const handleDelete = (item) => {
     confirmAlert({
       title: "Confirm To Delete",
@@ -36,14 +37,20 @@ const ProductList = () => {
     dispatch(PreUpdateProduct(data));
     history.push(`/product-edit/${id}`);
   };
-  useEffect(() => {
-    if (category && category.label.length > 0) {
-      dispatch(GetProductByCategory(category.value));
-    }
-  }, [category]);
+  const handlePagination = (page) => {
+    dispatch(GetProductList(search, page));
+  };
+  // useEffect(() => {
+  //   if (category && category.label.length > 0) {
+  //     dispatch(GetProductByCategory(category.value));
+  //   }
+  // }, [category]);
   useEffect(() => {
     dispatch(GetProductList());
   }, []);
+  useEffect(() => {
+    dispatch(GetProductList(search));
+  }, [search]);
   return (
     <>
       <div className="row alert alert-secondary">
@@ -60,7 +67,18 @@ const ProductList = () => {
             onChange={(e) => setCategory(e)}
           /> */}
         </div>
-        <div className="col-sm-4"></div>
+        <div className="col-sm-1">
+          <h6>Search</h6>
+        </div>
+        <div className="col-sm-3">
+          <input
+            className="form-control"
+            name="search"
+            type="text"
+            value={search}
+            onChange={(e) => setSearch(e.target.value)}
+          />
+        </div>
         <div className="col-sm-2">
           <a
             className="btn btn-success btn-sm text-light"
@@ -71,7 +89,7 @@ const ProductList = () => {
         </div>
       </div>
       <div className="mt-3">
-        {productArrList != null && productArrList.length > 0 && (
+        {productInfo != null && productInfo.products.length > 0 && (
           <table className="table table-striped">
             <thead>
               <tr>
@@ -86,7 +104,7 @@ const ProductList = () => {
               </tr>
             </thead>
             <tbody>
-              {productArrList.map((item, index) => (
+              {productInfo.products.map((item, index) => (
                 <tr>
                   <td>{index + 1}</td>
                   <td>{item.productName}</td>
@@ -121,6 +139,43 @@ const ProductList = () => {
           </table>
         )}
       </div>
+      <nav aria-label="Page navigation example">
+        <ul class="pagination">
+          {previousPage !== null && (<li
+            onClick={() => handlePagination(previousPage)}
+            class="page-item cp"><a class="page-link">Previous</a>
+          </li>)}
+          {(currentPage - 2) > 0 && (<li
+            onClick={() => handlePagination(currentPage - 2)}
+            class="page-item cp"><a class="page-link">{currentPage - 2}</a>
+          </li>)}
+          {(currentPage - 1) > 0 && (<li
+            onClick={() => handlePagination(currentPage - 1)}
+            class="page-item cp"><a class="page-link">{currentPage - 1}</a>
+          </li>)}
+
+          {totalPage !== currentPage && (<li
+            //  onClick={() => handlePagination(currentPage)}
+            class={totalPage !== currentPage ? "page-item cp active" : "page-item cp"}><a class="page-link" href="#">{currentPage}</a>
+          </li>)}
+          {(currentPage + 1) <= 3 && totalPage > 2 && (<li
+            onClick={() => handlePagination(currentPage + 1)}
+            class="page-item cp"><a class="page-link">{currentPage + 1}</a>
+          </li>)}
+          {(currentPage + 2) == 3 && totalPage > 2 && (<li
+            onClick={() => handlePagination(currentPage + 1)}
+            class="page-item cp"><a class="page-link">{currentPage + 2}</a>
+          </li>)}
+          {(totalPage - currentPage) > 1 && (<li class="page-item"><a class="page-link">-------</a></li>)}
+          <li
+            onClick={() => handlePagination(totalPage)}
+            class={totalPage === currentPage ? "page-item cp active" : "page-item cp"}><a class="page-link">{totalPage}</a></li>
+          {nextPage !== null && (<li
+            onClick={() => handlePagination(nextPage)}
+            class="page-item cp"><a class="page-link">Next</a>
+          </li>)}
+        </ul>
+      </nav>
     </>
   );
 };

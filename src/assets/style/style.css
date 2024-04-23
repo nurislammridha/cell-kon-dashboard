@@ -1,4 +1,8 @@
 /* //My Style */
+.cp {
+  cursor: pointer;
+}
+
 .form-bg {
   background-color: #fff;
   padding: 15px;

@@ -288,8 +288,8 @@ export const ProductUpdate = (data, id) => (dispatch) => {
 export const FalseUpdate = () => (dispatch) => {
   dispatch({ type: Types.AFTER_UPDATE_PRODUCT, payload: false });
 };
-export const GetProductList = () => (dispatch) => {
-  const url = `${process.env.REACT_APP_API_URL}product`;
+export const GetProductList = (search = "", page = 1, limit = 20) => (dispatch) => {
+  const url = `${process.env.REACT_APP_API_URL}product?search=${search}&page=${page}&limit=${limit}`;
   try {
     Axios.get(url).then((res) => {
       if (res.data.status) {
