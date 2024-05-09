@@ -1,6 +1,7 @@
 import { combineReducers } from "redux";
 import AuthReducer from "src/modules/auth/_redux/AuthReducer";
 import BrandReducer from "src/modules/brand/_redux/BrandReducer";
+import CampaignReducer from "src/modules/campaign/_redux/CampaignReducer";
 import CategoryReducer from "src/modules/category/_redux/CategoryReducer";
 import ColorReducer from "src/modules/color/_redux/ColorReducer";
 import OrderReducer from "src/modules/order/_redux/OrderReducer";
@@ -24,6 +25,7 @@ const rootReducer = combineReducers({
   productInfo: ProductReducer,
   userInfo: UserReducer,
   orderInfo: OrderReducer,
+  campaignInfo: CampaignReducer,
 });
 
 export default rootReducer;

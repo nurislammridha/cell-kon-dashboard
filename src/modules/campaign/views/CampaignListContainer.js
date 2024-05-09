@@ -1,12 +1,12 @@
 import React from "react";
-import CreateBrand from "../components/CreateBrand";
+import CampaignList from "../components/CampaignList";
 
-const BrandListContainer = () => {
+const CampaignListContainer = () => {
   return (
     <>
-      <CreateBrand />
+      <CampaignList />
     </>
   );
 };
 
-export default BrandListContainer;
+export default CampaignListContainer;

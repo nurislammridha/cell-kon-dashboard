@@ -1,12 +1,12 @@
 import React from "react";
-import CreateBrand from "../components/CreateBrand";
+import CreateCampaign from "../components/CreateCampaign";
 
-const CreateBrandContainer = () => {
+const CreateCampaignContainer = () => {
   return (
     <>
-      <CreateBrand />
+      <CreateCampaign />
     </>
   );
 };
 
-export default CreateBrandContainer;
+export default CreateCampaignContainer;

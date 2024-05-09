@@ -32,6 +32,10 @@ import UpdateCategoryContainer from "./modules/category/views/UpdateCategoryCont
 import UpdateSubCategoryContainer from "./modules/subCategory/views/UpdateSubCategoryContainer";
 import UpdateSellerContainer from "./modules/seller/views/UpdateSellerContainer";
 import UpdateProductContainer from "./modules/product/views/UpdateProductContainer";
+import CampaignListContainer from "./modules/campaign/views/CampaignListContainer";
+import CreateCampaignContainer from "./modules/campaign/views/CreateCampaignContainer";
+import EditCampaignContainer from "./modules/campaign/views/EditCampaignContainer";
+import CampaignProductListContainer from "./modules/campaign/views/CampaignProductListContainer";
 
 const Dashboard = React.lazy(() => import("./views/dashboard/Dashboard"));
 
@@ -163,6 +167,26 @@ const routes = [
     path: "/delivered-list",
     name: "Delivered order List",
     component: DeliveredOrderContainer,
+  },
+  {
+    path: "/campaign",
+    name: "Campaign List",
+    component: CampaignListContainer,
+  },
+  {
+    path: "/campaign-add",
+    name: "Campaign Create",
+    component: CreateCampaignContainer,
+  },
+  {
+    path: "/campaign-edit",
+    name: "Campaign Edit",
+    component: EditCampaignContainer,
+  },
+  {
+    path: "/campaign-product/:id",
+    name: "Campaign Edit",
+    component: CampaignProductListContainer,
   },
 ];
 

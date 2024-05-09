@@ -1,37 +1,43 @@
 import * as Types from "./Types";
 
 const initialState = {
-  isBrand: false,
+  isCampaign: false,
   afterCreated: false,
   afterDeleted: false,
-  brandList: null,
+  campaignList: null,
+  campaignDetails: null,
 };
-const BrandReducer = (state = initialState, action) => {
+const CampaignReducer = (state = initialState, action) => {
   const newState = { ...state };
   switch (action.type) {
-    case Types.IS_CREATE_BRAND:
+    case Types.IS_CREATE_CAMPAIGN:
       return {
         ...state,
-        isBrand: action.payload,
+        isCampaign: action.payload,
       };
     case Types.AFTER_CREATED:
       return {
         ...state,
         afterCreated: action.payload,
       };
-    case Types.BRAND_LIST:
+    case Types.CAMPAIGN_LIST:
       return {
         ...state,
-        brandList: action.payload,
+        campaignList: action.payload,
       };
     case Types.AFTER_DELETED:
       return {
         ...state,
         afterDeleted: action.payload,
       };
+    case Types.CAMPAIGN_DETAILS:
+      return {
+        ...state,
+        campaignDetails: action.payload,
+      };
     default:
       break;
   }
   return newState;
 };
-export default BrandReducer;
+export default CampaignReducer;

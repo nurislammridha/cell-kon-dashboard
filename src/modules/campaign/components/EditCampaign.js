@@ -1,8 +1,13 @@
 import React, { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import { AfterCreatedFalse, SubmitCampaign } from "../_redux/CampaignAction";
+import { AfterCreatedFalse, UpdateCampaign } from "../_redux/CampaignAction";
+import { useHistory, useLocation } from "react-router-dom";
 
-const CreateCampaign = () => {
+const EditCampaign = () => {
+  const history = useHistory()
+  const location = useLocation()
+  const data = location?.state?.data || {}
+  const id = data?._id
   const [campaignName, setCampaignName] = useState("");
   const [campaignStartTime, setCampaignStartTime] = useState("");
   const [campaignStartDate, setCampaignStartDate] = useState("");
@@ -12,7 +17,7 @@ const CreateCampaign = () => {
   const afterCreated = useSelector((state) => state.brandInfo.afterCreated);
   const dispatch = useDispatch();
   const handleSubmit = () => {
-    dispatch(SubmitCampaign({ campaignName, campaignStartTime, campaignStartDate, campaignEndTime, campaignEndDate, campaignProducts: [], soldProducts: [] }));
+    dispatch(UpdateCampaign({ campaignName, campaignStartTime, campaignStartDate, campaignEndTime, campaignEndDate, campaignProducts: [], soldProducts: [] }, id));
   };
   useEffect(() => {
     if (afterCreated) {
@@ -21,10 +26,18 @@ const CreateCampaign = () => {
       setCampaignStartDate("")
       setCampaignEndTime("")
       setCampaignEndDate("")
+      history.push('/campaign')
       dispatch(AfterCreatedFalse())
     }
   }, [afterCreated])
-
+  useEffect(() => {
+    setCampaignName(data?.campaignName)
+    setCampaignStartTime(data?.campaignStartTime)
+    setCampaignStartDate(data?.campaignStartDate)
+    setCampaignEndTime(data?.campaignEndTime)
+    setCampaignEndDate(data?.campaignEndDate)
+  }, [location])
+  console.log('location', location)
   return (
     <>
       <div className="row">
@@ -94,7 +107,7 @@ const CreateCampaign = () => {
               className="btn btn-success btn-sm mt-3 text-light"
               onClick={() => handleSubmit()}
             >
-              SUBMIT
+              UPDATE
             </a>
           )}
         </div>
@@ -104,4 +117,4 @@ const CreateCampaign = () => {
   );
 };
 
-export default CreateCampaign;
+export default EditCampaign;

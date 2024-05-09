@@ -61,6 +61,12 @@ const _nav = [
     icon: <CIcon name="cil-speedometer" customClasses="c-sidebar-nav-icon" />,
   },
   {
+    _tag: "CSidebarNavItem",
+    name: "Campaign",
+    to: "/campaign",
+    icon: <CIcon name="cil-speedometer" customClasses="c-sidebar-nav-icon" />,
+  },
+  {
     _tag: "CSidebarNavDropdown",
     name: "Order Management",
     route: "",
