@@ -131,6 +131,47 @@ export const CampaignDelete = (id) => (dispatch) => {
     showToast("error", "Something went wrong");
   }
 };
+export const CampaignProductDelete = (id, arrId) => (dispatch) => {
+  const url = `${process.env.REACT_APP_API_URL}campaign/remove-product/${id}?arrId=${arrId}`;
+  try {
+    Axios.delete(url).then((res) => {
+      if (res.data.status) {
+        showToast("success", res.data.message);
+        dispatch({ type: Types.AFTER_DELETED, payload: true })
+      } else {
+        showToast("error", "Something went wrong");
+      }
+    });
+  } catch (error) {
+    showToast("error", "Something went wrong");
+  }
+};
 export const AfterDeletedFalse = () => (dispatch) => {
   dispatch({ type: Types.AFTER_DELETED, payload: false })
+}
+
+export const SubmitCampaignProducts = (data = [], campaignId) => (dispatch) => {
+  if (data.length === 0) {
+    showToast("error", "Minimum one campaign price");
+    return 0;
+  }
+  const url = `${process.env.REACT_APP_API_URL}campaign/add-products/${campaignId}`;
+  dispatch({ type: Types.ADDING_CAMPAIGN_PRODUCTS, payload: true })
+  try {
+    Axios.post(url, data).then((res) => {
+      if (res.data.status) {
+        dispatch({ type: Types.ADDING_CAMPAIGN_PRODUCTS, payload: false })
+        dispatch({ type: Types.ADDED_CAMPAIGN_PRODUCTS, payload: true });
+      }
+    });
+  } catch (error) {
+    dispatch({ type: Types.ADDING_CAMPAIGN_PRODUCTS, payload: false })
+    showToast("error", "Something went wrong");
+  }
+};
+export const AfterAddedFalse = () => (dispatch) => {
+  dispatch({ type: Types.ADDED_CAMPAIGN_PRODUCTS, payload: false })
+}
+export const showWithoutAdded = (mArr, arr) => {
+  return mArr.filter(val => !arr.find((val2 => val._id === val2.productId)));
 }

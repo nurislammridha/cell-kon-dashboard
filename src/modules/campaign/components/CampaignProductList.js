@@ -2,7 +2,7 @@ import React, { useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { confirmAlert } from "react-confirm-alert";
 import "react-confirm-alert/src/react-confirm-alert.css";
-import { AfterDeletedFalse, CampaignDelete, GetCampaignDetails, GetCampaignList } from "../_redux/CampaignAction";
+import { AfterDeletedFalse, CampaignDelete, CampaignProductDelete, GetCampaignDetails, GetCampaignList } from "../_redux/CampaignAction";
 import { useHistory, useParams } from "react-router-dom";
 const CampaignProductList = () => {
   const history = useHistory();
@@ -19,14 +19,14 @@ const CampaignProductList = () => {
     history.push({ pathname: `/campaign-edit`, state: { data } })
   }
 
-  const handleDelete = (id) => {
+  const handleDelete = (arrId) => {
     confirmAlert({
       title: "Confirm To Delete",
       message: `Are you sure to delete this campaign?`,
       buttons: [
         {
           label: "Yes",
-          onClick: () => dispatch(CampaignDelete(id)),
+          onClick: () => dispatch(CampaignProductDelete(id, arrId)),
         },
         {
           label: "No",
@@ -39,7 +39,7 @@ const CampaignProductList = () => {
   }, [id]);
   useEffect(() => {
     if (afterDeleted) {
-      dispatch(GetCampaignList());
+      dispatch(GetCampaignDetails(id));
       dispatch(AfterDeletedFalse());
     }
 
@@ -51,7 +51,7 @@ const CampaignProductList = () => {
         <h4>{campaignName}'s Products</h4>
         <a
           className="btn btn-success btn-sm text-light"
-        // onClick={() => history.push("/campaign-add")}
+          onClick={() => history.push(`/campaign-product-add/${id}`)}
         >
           Add Product
         </a>
@@ -64,8 +64,8 @@ const CampaignProductList = () => {
                 <th>SL</th>
                 <th>Product Name</th>
                 <th>Category</th>
-                <th>Shop</th>
-                <th>Available</th>
+                <th>Seller</th>
+                <th>Price</th>
                 <th>Campaign</th>
                 <th>Action</th>
               </tr>
@@ -74,17 +74,18 @@ const CampaignProductList = () => {
               {campaignProducts.map((item, index) => (
                 <tr>
                   <td>{index + 1}</td>
-                  <td>{item.campaignName}</td>
-                  <td>{item.campaignStartTime + " " + item.campaignStartDate}</td>
-                  <td>{item.campaignEndTime + " " + item.campaignEndDate}</td>
-                  <td>{item.isActive ? "Active" : "Inactive"}</td>
+                  <td>{item.product.productName}</td>
+                  <td>{item.product.categoryName}</td>
+                  <td>{item.product.sellerName}</td>
+                  <td>{item.product.mrp * (1 - item.product.regularDiscount * .01)}</td>
+                  <td>{item.campaignPrice}</td>
                   <td>
-                    <a
+                    {/* <a
                       className="btn btn-success btn-sm mr-1"
                       onClick={() => handleEdit(item)}
                     >
                       <i className="fa fa-pencil"></i>
-                    </a>
+                    </a> */}
                     <a
                       className="btn btn-danger btn-sm"
                       onClick={() => handleDelete(item._id)}

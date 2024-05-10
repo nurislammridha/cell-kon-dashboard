@@ -6,6 +6,8 @@ const initialState = {
   afterDeleted: false,
   campaignList: null,
   campaignDetails: null,
+  isAddingCampaignProduct: false,
+  addedCampaignProduct: false,
 };
 const CampaignReducer = (state = initialState, action) => {
   const newState = { ...state };
@@ -34,6 +36,16 @@ const CampaignReducer = (state = initialState, action) => {
       return {
         ...state,
         campaignDetails: action.payload,
+      };
+    case Types.ADDING_CAMPAIGN_PRODUCTS:
+      return {
+        ...state,
+        isAddingCampaignProduct: action.payload,
+      };
+    case Types.ADDED_CAMPAIGN_PRODUCTS:
+      return {
+        ...state,
+        addedCampaignProduct: action.payload,
       };
     default:
       break;

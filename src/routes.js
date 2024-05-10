@@ -36,6 +36,7 @@ import CampaignListContainer from "./modules/campaign/views/CampaignListContaine
 import CreateCampaignContainer from "./modules/campaign/views/CreateCampaignContainer";
 import EditCampaignContainer from "./modules/campaign/views/EditCampaignContainer";
 import CampaignProductListContainer from "./modules/campaign/views/CampaignProductListContainer";
+import CreateCampaignProductContainer from "./modules/campaign/views/CreateCampaignProductContainer";
 
 const Dashboard = React.lazy(() => import("./views/dashboard/Dashboard"));
 
@@ -185,8 +186,13 @@ const routes = [
   },
   {
     path: "/campaign-product/:id",
-    name: "Campaign Edit",
+    name: "Campaign Product",
     component: CampaignProductListContainer,
+  },
+  {
+    path: "/campaign-product-add/:id",
+    name: "Campaign Product Add",
+    component: CreateCampaignProductContainer,
   },
 ];
 
