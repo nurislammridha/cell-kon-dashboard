@@ -2,12 +2,13 @@ import React, { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { AfterCreatedFalse, UpdateCampaign } from "../_redux/CampaignAction";
 import { useHistory, useLocation } from "react-router-dom";
-
+import { Form, FormControl } from "react-bootstrap";
 const EditCampaign = () => {
   const history = useHistory()
   const location = useLocation()
   const data = location?.state?.data || {}
   const id = data?._id
+  const [isShowHomePage, setShowHomePage] = useState(false);
   const [campaignName, setCampaignName] = useState("");
   const [campaignStartTime, setCampaignStartTime] = useState("");
   const [campaignStartDate, setCampaignStartDate] = useState("");
@@ -17,7 +18,7 @@ const EditCampaign = () => {
   const afterCreated = useSelector((state) => state.brandInfo.afterCreated);
   const dispatch = useDispatch();
   const handleSubmit = () => {
-    dispatch(UpdateCampaign({ campaignName, campaignStartTime, campaignStartDate, campaignEndTime, campaignEndDate, campaignProducts: [], soldProducts: [] }, id));
+    dispatch(UpdateCampaign({ campaignName, campaignStartTime, campaignStartDate, campaignEndTime, campaignEndDate, campaignProducts: [], soldProducts: [], isShowHomePage }, id));
   };
   useEffect(() => {
     if (afterCreated) {
@@ -36,6 +37,7 @@ const EditCampaign = () => {
     setCampaignStartDate(data?.campaignStartDate)
     setCampaignEndTime(data?.campaignEndTime)
     setCampaignEndDate(data?.campaignEndDate)
+    setShowHomePage(data?.isShowHomePage)
   }, [location])
   console.log('location', location)
   return (
@@ -92,6 +94,27 @@ const EditCampaign = () => {
               placeholder="Ex: 23/02/2024"
               onChange={(e) => setCampaignEndDate(e.target.value)}
             />
+          </div>
+          <div className="mt-4">
+            <div class="form-group">
+              <label htmlFor="discount" className="mr-2">Show Home In Page</label>
+              <Form.Check
+                inline
+                label="Yes"
+                name="isShowHomePage"
+                type="radio"
+                checked={isShowHomePage === true}
+                onChange={(e) => setShowHomePage(true)}
+              />
+              <Form.Check
+                inline
+                label="No"
+                name="isShowHomePage"
+                type="radio"
+                checked={isShowHomePage === false}
+                onChange={(e) => setShowHomePage(false)}
+              />
+            </div>
           </div>
           {isBrand ? (
             <a className="btn btn-success btn-sm mt-3 text-light">

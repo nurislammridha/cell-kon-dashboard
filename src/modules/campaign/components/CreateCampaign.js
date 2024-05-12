@@ -1,18 +1,19 @@
 import React, { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { AfterCreatedFalse, SubmitCampaign } from "../_redux/CampaignAction";
-
+import { Form, FormControl } from "react-bootstrap";
 const CreateCampaign = () => {
   const [campaignName, setCampaignName] = useState("");
   const [campaignStartTime, setCampaignStartTime] = useState("");
   const [campaignStartDate, setCampaignStartDate] = useState("");
   const [campaignEndTime, setCampaignEndTime] = useState("");
   const [campaignEndDate, setCampaignEndDate] = useState("");
+  const [isShowHomePage, setShowHomePage] = useState(false);
   const isBrand = useSelector((state) => state.brandInfo.isBrand);
   const afterCreated = useSelector((state) => state.brandInfo.afterCreated);
   const dispatch = useDispatch();
   const handleSubmit = () => {
-    dispatch(SubmitCampaign({ campaignName, campaignStartTime, campaignStartDate, campaignEndTime, campaignEndDate, campaignProducts: [], soldProducts: [] }));
+    dispatch(SubmitCampaign({ campaignName, campaignStartTime, campaignStartDate, campaignEndTime, campaignEndDate, campaignProducts: [], soldProducts: [], isShowHomePage }));
   };
   useEffect(() => {
     if (afterCreated) {
@@ -79,6 +80,27 @@ const CreateCampaign = () => {
               placeholder="Ex: 23/02/2024"
               onChange={(e) => setCampaignEndDate(e.target.value)}
             />
+          </div>
+          <div className="mt-4">
+            <div class="form-group">
+              <label htmlFor="discount" className="mr-2">Show Home In Page</label>
+              <Form.Check
+                inline
+                label="Yes"
+                name="isShowHomePage"
+                type="radio"
+                checked={isShowHomePage === true}
+                onChange={(e) => setShowHomePage(true)}
+              />
+              <Form.Check
+                inline
+                label="No"
+                name="isShowHomePage"
+                type="radio"
+                checked={isShowHomePage === false}
+                onChange={(e) => setShowHomePage(false)}
+              />
+            </div>
           </div>
           {isBrand ? (
             <a className="btn btn-success btn-sm mt-3 text-light">

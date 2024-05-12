@@ -160,7 +160,7 @@ const CreateProduct = () => {
             />
           </div>
           <div className="mt-2">
-            <h6>Regular Discount in %</h6>
+            <h6>Regular Price</h6>
             <input
               className="form-control"
               type="number"
@@ -171,7 +171,7 @@ const CreateProduct = () => {
               }
             />
           </div>
-          <div className="mt-2">
+          {/* <div className="mt-2">
             <h6>Campaign Discount in %</h6>
             <input
               className="form-control"
@@ -182,7 +182,7 @@ const CreateProduct = () => {
                 handleChangeInput("campaignDiscount", e.target.value)
               }
             />
-          </div>
+          </div> */}
           <div className="mt-2">
             <h6>Available Quantity</h6>
             <input
@@ -424,7 +424,7 @@ const CreateProduct = () => {
               />
             </div>
           </div>
-          <div className="mt-2">
+          {/* <div className="mt-2">
             <div class="form-group">
               <label htmlFor="discount" className="mr-4">Is Campaign &nbsp;&nbsp;</label>
               <Form.Check
@@ -444,7 +444,7 @@ const CreateProduct = () => {
                 onChange={(e) => handleChangeInput("isCampaign", false)}
               />
             </div>
-          </div>
+          </div> */}
           <div className="mt-2">
             <div class="form-group">
               <label htmlFor="discount" className="mr-5">Is Trending</label>

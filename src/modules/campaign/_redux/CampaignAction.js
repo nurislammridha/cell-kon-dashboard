@@ -131,8 +131,8 @@ export const CampaignDelete = (id) => (dispatch) => {
     showToast("error", "Something went wrong");
   }
 };
-export const CampaignProductDelete = (id, arrId) => (dispatch) => {
-  const url = `${process.env.REACT_APP_API_URL}campaign/remove-product/${id}?arrId=${arrId}`;
+export const CampaignProductDelete = (proId) => (dispatch) => {
+  const url = `${process.env.REACT_APP_API_URL}campaign/remove-product/${proId}`;
   try {
     Axios.delete(url).then((res) => {
       if (res.data.status) {

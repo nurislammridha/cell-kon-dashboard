@@ -10,7 +10,7 @@ const CampaignProductList = () => {
   const campaignDetails = useSelector(
     (state) => state.campaignInfo.campaignDetails
   );
-  const { campaignName, campaignProducts } = campaignDetails || {}
+  const { campaignName, products } = campaignDetails || {}
   const afterDeleted = useSelector(
     (state) => state.campaignInfo.afterDeleted
   );
@@ -19,14 +19,14 @@ const CampaignProductList = () => {
     history.push({ pathname: `/campaign-edit`, state: { data } })
   }
 
-  const handleDelete = (arrId) => {
+  const handleDelete = (proId) => {
     confirmAlert({
       title: "Confirm To Delete",
       message: `Are you sure to delete this campaign?`,
       buttons: [
         {
           label: "Yes",
-          onClick: () => dispatch(CampaignProductDelete(id, arrId)),
+          onClick: () => dispatch(CampaignProductDelete(proId)),
         },
         {
           label: "No",
@@ -44,7 +44,7 @@ const CampaignProductList = () => {
     }
 
   }, [afterDeleted]);
-  console.log('campaignDetails', campaignDetails)
+  // console.log('campaignDetails', campaignDetails)
   return (
     <>
       <div className="d-flex justify-content-between">
@@ -57,7 +57,7 @@ const CampaignProductList = () => {
         </a>
       </div>
       <div className="mt-3">
-        {campaignDetails != null && campaignProducts.length > 0 && (
+        {campaignDetails != null && products.length > 0 && (
           <table className="table table-striped">
             <thead>
               <tr>
@@ -71,14 +71,14 @@ const CampaignProductList = () => {
               </tr>
             </thead>
             <tbody>
-              {campaignProducts.map((item, index) => (
+              {products.map((item, index) => (
                 <tr>
                   <td>{index + 1}</td>
-                  <td>{item.product.productName}</td>
-                  <td>{item.product.categoryName}</td>
-                  <td>{item.product.sellerName}</td>
-                  <td>{item.product.mrp * (1 - item.product.regularDiscount * .01)}</td>
-                  <td>{item.campaignPrice}</td>
+                  <td>{item.productName}</td>
+                  <td>{item.categoryName}</td>
+                  <td>{item.sellerName}</td>
+                  <td>{item.regularDiscount}</td>
+                  <td>{item.campaignDiscount}</td>
                   <td>
                     {/* <a
                       className="btn btn-success btn-sm mr-1"

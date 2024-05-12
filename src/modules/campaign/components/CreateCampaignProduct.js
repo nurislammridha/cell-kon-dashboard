@@ -63,8 +63,8 @@ const CreateCampaignProduct = () => {
     discounts[index].campaignPrice = price
     setDiscounts([...discounts])
   }
-  console.log('discounts', discounts)
-  console.log('proInfo', proInfo)
+  // console.log('discounts', discounts)
+  // console.log('proInfo', proInfo)
 
   useEffect(() => {
     if (addedCampaignProduct) {
@@ -86,7 +86,7 @@ const CreateCampaignProduct = () => {
   }
   useEffect(() => {
     if (productArrList !== null && productArrList.length > 0) {
-      setDiscounts(makePrice(showWithoutAdded(productArrList, campaignProducts)))
+      setDiscounts(makePrice(productArrList))
     }
   }, [productArrList]);
   useEffect(() => {
@@ -174,7 +174,7 @@ const CreateCampaignProduct = () => {
               </tr>
             </thead>
             <tbody>
-              {showWithoutAdded(productArrList, campaignProducts).map((item, index) => (
+              {productArrList.map((item, index) => (
                 <tr>
                   <td>
                     <input
@@ -193,6 +193,7 @@ const CreateCampaignProduct = () => {
                   <td>{item.mrp * (1 - item.regularDiscount * .01)}</td>
                   <td>
                     <input
+                      disabled={item?.isCampaign}
                       type="number"
                       value={discounts[index]?.campaignPrice || 0}
                       onChange={(e) => handleDiscount(index, e.target.value)}

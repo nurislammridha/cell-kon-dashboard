@@ -62,6 +62,7 @@ const CampaignList = () => {
                 <th>Campaign Name</th>
                 <th>Start</th>
                 <th>End</th>
+                <th>Show Home</th>
                 <th>Status</th>
                 <th>Action</th>
               </tr>
@@ -73,6 +74,7 @@ const CampaignList = () => {
                   <td>{item.campaignName}</td>
                   <td>{item.campaignStartTime + " " + item.campaignStartDate}</td>
                   <td>{item.campaignEndTime + " " + item.campaignEndDate}</td>
+                  <td>{item.isShowHomePage ? "SHOW" : "HIDE"}</td>
                   <td>{item.isActive ? "Active" : "Inactive"}</td>
                   <td>
                     <a
