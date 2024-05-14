@@ -164,7 +164,7 @@ const CreateProduct = () => {
             <input
               className="form-control"
               type="number"
-              placeholder="enter regular discount"
+              placeholder="enter regular price"
               value={productInput.regularDiscount}
               onChange={(e) =>
                 handleChangeInput("regularDiscount", e.target.value)
