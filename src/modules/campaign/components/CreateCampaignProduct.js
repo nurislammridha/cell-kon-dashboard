@@ -190,7 +190,7 @@ const CreateCampaignProduct = () => {
                   <td>{item.productName}</td>
                   <td><img src={item.productIcon.url} width={40} /></td>
                   <td>{item.mrp}</td>
-                  <td>{item.mrp * (1 - item.regularDiscount * .01)}</td>
+                  <td>{item.regularDiscount}</td>
                   <td>
                     <input
                       disabled={item?.isCampaign}

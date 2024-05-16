@@ -161,6 +161,10 @@ export const SubmitProduct = (data) => (dispatch) => {
   const url = `${process.env.REACT_APP_API_URL}product`;
   dispatch({ type: Types.IS_CREATE_PRODUCT, payload: true });
   // console.log('data', data)
+  data.availableQuantity = parseInt(data.availableQuantity)
+  data.mrp = parseInt(data.mrp)
+  data.rp = parseInt(data.rp)
+  data.regularDiscount = parseInt(data.regularDiscount)
   data.longDescriptions = "<p>" + data.longDescriptions + "</p>"
   if (data.videoUrl.length > 0) { data.videoUrl = data.videoUrl.split(",") }
   delete data.longDescriptionView
