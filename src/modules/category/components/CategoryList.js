@@ -67,7 +67,7 @@ const CategoryList = () => {
                 <tr>
                   <td>{index + 1}</td>
                   <td>{item.categoryName}</td>
-                  <it><img src={item?.categoryImg?.url} width={"50px"} /></it>
+                  <td><img src={item?.categoryImg?.url} width={"50px"} /></td>
                   <td>{item.isActive ? "Active" : "Inactive"}</td>
                   <td>
                     <a

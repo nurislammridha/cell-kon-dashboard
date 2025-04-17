@@ -116,10 +116,12 @@ export const SubmitProduct = (data) => (dispatch) => {
   } else if (campaignDiscount < 0) {
     showToast("error", "Campaign shouldn't negative");
     return 0;
-  } else if (availableQuantity <= 0) {
-    showToast("error", "Quantity should be greater than zero");
+  }
+  else if (availableQuantity < 0) {
+    showToast("error", "Quantity should not be negative");
     return 0;
-  } else if (productIcon.public_d <= 0) {
+  }
+  else if (productIcon.public_d <= 0) {
     showToast("error", "Select product icon");
     return 0;
   } else if (productImgColor.length === 0) {
@@ -216,8 +218,8 @@ export const ProductUpdate = (data, id) => (dispatch) => {
   } else if (campaignDiscount < 0) {
     showToast("error", "Campaign shouldn't be negative");
     return 0;
-  } else if (availableQuantity <= 0) {
-    showToast("error", "Quantity should be greater than zero");
+  } else if (availableQuantity < 0) {
+    showToast("error", "Quantity should not negative");
     return 0;
   } else if (productIcon.public_d <= 0) {
     showToast("error", "Select product icon");
@@ -264,7 +266,9 @@ export const ProductUpdate = (data, id) => (dispatch) => {
   data.longDescriptions = "<p>" + data.longDescriptions + "</p>"
   if (data.videoUrl.length > 0) { data.videoUrl = data.videoUrl.split(",") }
   delete data.longDescriptionView
-
+  data.availableQuantity = parseInt(data.availableQuantity)
+  data.mrp = parseInt(data.mrp)
+  data.rp = parseInt(data.rp)
   try {
     Axios.put(url, data)
       .then((res) => {
