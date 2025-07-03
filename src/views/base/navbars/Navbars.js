@@ -81,7 +81,7 @@ const CNavbars = () => {
                 className="d-inline-block align-top"
                 alt="CoreuiVue"
               />
-              CellKon
+              Sellkon
             </CNavbarBrand>
           </CNavbar>
         </CCardBody>

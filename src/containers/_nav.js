@@ -50,6 +50,12 @@ const _nav = [
   },
   {
     _tag: "CSidebarNavItem",
+    name: "Sub Sub Category",
+    to: "/sub-sub-category",
+    icon: <CIcon name="cil-speedometer" customClasses="c-sidebar-nav-icon" />,
+  },
+  {
+    _tag: "CSidebarNavItem",
     name: "Seller",
     to: "/seller",
     icon: <CIcon name="cil-speedometer" customClasses="c-sidebar-nav-icon" />,

@@ -37,6 +37,9 @@ import CreateCampaignContainer from "./modules/campaign/views/CreateCampaignCont
 import EditCampaignContainer from "./modules/campaign/views/EditCampaignContainer";
 import CampaignProductListContainer from "./modules/campaign/views/CampaignProductListContainer";
 import CreateCampaignProductContainer from "./modules/campaign/views/CreateCampaignProductContainer";
+import SubSubCategoryListContainer from "./modules/subSubCategory/views/SubSubCategoryListContainer";
+import UpdateSubSubCategoryContainer from "./modules/subSubCategory/views/UpdateSubSubCategoryContainer";
+import CreateSubSubCategoryContainer from "./modules/subSubCategory/views/CreateSubSubCategoryContainer";
 
 const Dashboard = React.lazy(() => import("./views/dashboard/Dashboard"));
 
@@ -94,6 +97,14 @@ const routes = [
     path: "/sub-category-add",
     name: "Create Sub Category",
     component: CreateSubCategoryContainer,
+  },
+  //sub sub category
+  { path: "/sub-sub-category", name: "Sub Sub Category", component: SubSubCategoryListContainer },
+  { path: "/sub-sub-category-edit/:id", name: "Sub Sub Category", component: UpdateSubSubCategoryContainer },
+  {
+    path: "/sub-sub-category-add",
+    name: "Create Sub Sub Category",
+    component: CreateSubSubCategoryContainer,
   },
   //seller
   { path: "/seller", name: "Seller", component: SellerListContainer },
